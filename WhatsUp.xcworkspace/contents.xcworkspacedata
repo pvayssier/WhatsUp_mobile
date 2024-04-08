@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:/Users/p.vayssier/Documents/School/projet_spe/WhatsUp_mobile/Targets/WhatsUp/WhatsUp.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Frameworks">
+   </FileRef>
+</Workspace>
