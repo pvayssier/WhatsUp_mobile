@@ -10,7 +10,8 @@
 		FF6E06F02BC43D30007DC4B1 /* WhatsUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6E06EF2BC43D30007DC4B1 /* WhatsUpApp.swift */; };
 		FF6E06F42BC43D31007DC4B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */; };
 		FF6E06F72BC43D31007DC4B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F62BC43D31007DC4B1 /* Preview Assets.xcassets */; };
-		FFCDF40E2BC4817E0095017E /* Authentification in Frameworks */ = {isa = PBXBuildFile; productRef = FFCDF40D2BC4817E0095017E /* Authentification */; };
+		FF82C7672BCD53DE00B7A3BE /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = FF82C7662BCD53DE00B7A3BE /* Factory */; };
+		FF82C76A2BCD94F600B7A3BE /* Authentification in Frameworks */ = {isa = PBXBuildFile; productRef = FF82C7692BCD94F600B7A3BE /* Authentification */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,10 +28,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FF6E06EC2BC43D30007DC4B1 /* WhatsUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = WhatsUp.app; path = "/Users/p.vayssier/Documents/School/projet_spe/WhatsUp_mobile/Targets/WhatsUp/build/Debug-iphoneos/WhatsUp.app"; sourceTree = "<absolute>"; };
 		FF6E06EF2BC43D30007DC4B1 /* WhatsUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsUpApp.swift; sourceTree = "<group>"; };
 		FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF6E06F62BC43D31007DC4B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FF82C7642BCD09F500B7A3BE /* WhatsUpApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsUpApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFCDF40E2BC4817E0095017E /* Authentification in Frameworks */,
+				FF82C7672BCD53DE00B7A3BE /* Factory in Frameworks */,
+				FF82C76A2BCD94F600B7A3BE /* Authentification in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +51,8 @@
 			isa = PBXGroup;
 			children = (
 				FF6E06EE2BC43D30007DC4B1 /* WhatsUp */,
+				FF82C7642BCD09F500B7A3BE /* WhatsUpApp.app */,
+				FF82C7682BCD94F600B7A3BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,12 +74,19 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		FF82C7682BCD94F600B7A3BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FF6E06EB2BC43D30007DC4B1 /* WhatsUp */ = {
+		FF6E06EB2BC43D30007DC4B1 /* WhatsUpApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF6E06FA2BC43D31007DC4B1 /* Build configuration list for PBXNativeTarget "WhatsUp" */;
+			buildConfigurationList = FF6E06FA2BC43D31007DC4B1 /* Build configuration list for PBXNativeTarget "WhatsUpApp" */;
 			buildPhases = (
 				FF6E06E82BC43D30007DC4B1 /* Sources */,
 				FF6E06E92BC43D30007DC4B1 /* Frameworks */,
@@ -86,12 +97,13 @@
 			);
 			dependencies = (
 			);
-			name = WhatsUp;
+			name = WhatsUpApp;
 			packageProductDependencies = (
-				FFCDF40D2BC4817E0095017E /* Authentification */,
+				FF82C7662BCD53DE00B7A3BE /* Factory */,
+				FF82C7692BCD94F600B7A3BE /* Authentification */,
 			);
 			productName = WhatsUp;
-			productReference = FF6E06EC2BC43D30007DC4B1 /* WhatsUp.app */;
+			productReference = FF82C7642BCD09F500B7A3BE /* WhatsUpApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -120,12 +132,13 @@
 			mainGroup = FF6E06E32BC43D30007DC4B1;
 			packageReferences = (
 				FF6E07882BC47829007DC4B1 /* XCLocalSwiftPackageReference "../../Frameworks" */,
+				FF82C7652BCD53DE00B7A3BE /* XCRemoteSwiftPackageReference "Factory" */,
 			);
 			productRefGroup = FF6E06E32BC43D30007DC4B1;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FF6E06EB2BC43D30007DC4B1 /* WhatsUp */,
+				FF6E06EB2BC43D30007DC4B1 /* WhatsUpApp */,
 			);
 		};
 /* End PBXProject section */
@@ -206,7 +219,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -263,7 +276,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -281,20 +294,22 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatsUp/Preview Content\"";
-				DEVELOPMENT_TEAM = WYKFVV9HK5;
+				DEVELOPMENT_TEAM = 3ZD277H8K2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WhatsUpApp;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.paulvayssier.WhatsUp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paulvayssier.WhatsUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -310,20 +325,22 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatsUp/Preview Content\"";
-				DEVELOPMENT_TEAM = WYKFVV9HK5;
+				DEVELOPMENT_TEAM = 3ZD277H8K2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WhatsUpApp;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.paulvayssier.WhatsUp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paulvayssier.WhatsUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -343,7 +360,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF6E06FA2BC43D31007DC4B1 /* Build configuration list for PBXNativeTarget "WhatsUp" */ = {
+		FF6E06FA2BC43D31007DC4B1 /* Build configuration list for PBXNativeTarget "WhatsUpApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF6E06FB2BC43D31007DC4B1 /* Debug */,
@@ -361,9 +378,26 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		FF82C7652BCD53DE00B7A3BE /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		FFCDF40D2BC4817E0095017E /* Authentification */ = {
+		FF82C7662BCD53DE00B7A3BE /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = FF82C7652BCD53DE00B7A3BE /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		FF82C7692BCD94F600B7A3BE /* Authentification */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF6E07882BC47829007DC4B1 /* XCLocalSwiftPackageReference "../../Frameworks" */;
 			productName = Authentification;
 		};
 /* End XCSwiftPackageProductDependency section */
