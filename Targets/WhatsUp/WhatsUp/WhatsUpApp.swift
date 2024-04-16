@@ -17,7 +17,8 @@ struct WhatsUpApp: App {
     }
 }
 
-
+#if DEBUG
 #Preview {
     Authentification(viewModel: AuthViewModel(viewState: AuthViewState(authType: .login)))
 }
+#endif
