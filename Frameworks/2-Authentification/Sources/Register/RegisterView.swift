@@ -128,8 +128,9 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
         .background(Color(uiColor: UIColor.systemGray6))
     }
 }
-
+#if DEBUG
 #Preview {
     @State var viewModel: AuthViewModel = AuthViewModel(viewState: AuthViewState(authType: .login))
     return RegisterView(viewModel: viewModel)
 }
+#endif

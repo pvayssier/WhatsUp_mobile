@@ -42,8 +42,9 @@ public struct Authentification<ViewModel: AuthViewModelProtocol>: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @State var viewModel: AuthViewModel = AuthViewModel(viewState: AuthViewState(authType: .login))
     return Authentification(viewModel: viewModel)
 }
-
+#endif
