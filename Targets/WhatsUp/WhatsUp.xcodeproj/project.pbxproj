@@ -11,7 +11,7 @@
 		FF6E06F42BC43D31007DC4B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */; };
 		FF6E06F72BC43D31007DC4B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F62BC43D31007DC4B1 /* Preview Assets.xcassets */; };
 		FF82C7672BCD53DE00B7A3BE /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = FF82C7662BCD53DE00B7A3BE /* Factory */; };
-		FF82C76A2BCD94F600B7A3BE /* Authentification in Frameworks */ = {isa = PBXBuildFile; productRef = FF82C7692BCD94F600B7A3BE /* Authentification */; };
+		FF82C7762BCEA6E800B7A3BE /* Authentification in Frameworks */ = {isa = PBXBuildFile; productRef = FF82C7752BCEA6E800B7A3BE /* Authentification */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,7 +40,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF82C7672BCD53DE00B7A3BE /* Factory in Frameworks */,
-				FF82C76A2BCD94F600B7A3BE /* Authentification in Frameworks */,
+				FF82C7762BCEA6E800B7A3BE /* Authentification in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 			name = WhatsUpApp;
 			packageProductDependencies = (
 				FF82C7662BCD53DE00B7A3BE /* Factory */,
-				FF82C7692BCD94F600B7A3BE /* Authentification */,
+				FF82C7752BCEA6E800B7A3BE /* Authentification */,
 			);
 			productName = WhatsUp;
 			productReference = FF82C7642BCD09F500B7A3BE /* WhatsUpApp.app */;
@@ -395,9 +395,8 @@
 			package = FF82C7652BCD53DE00B7A3BE /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
 		};
-		FF82C7692BCD94F600B7A3BE /* Authentification */ = {
+		FF82C7752BCEA6E800B7A3BE /* Authentification */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FF6E07882BC47829007DC4B1 /* XCLocalSwiftPackageReference "../../Frameworks" */;
 			productName = Authentification;
 		};
 /* End XCSwiftPackageProductDependency section */

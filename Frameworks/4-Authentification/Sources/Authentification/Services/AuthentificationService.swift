@@ -14,7 +14,7 @@ public protocol AuthentificationServiceProtocol {
     var user: User? { get }
     var isLoading: Bool { get }
     func login(authentId: String, password: String) async -> Bool
-    func createAccount(user: User, password: String)
+    func createAccount(user: User, password: String) async -> Bool
 }
 
 enum AuthentificationError: Error {
@@ -35,21 +35,21 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
         self.webDataAccess = webDataAccess
     }
 
-    public func createAccount(user userInformation: User, password: String) {
+    public func createAccount(user userInformation: User, password: String) async -> Bool {
         isLoading = true
-        Task {
-            do {
-                let request = try await webDataAccess.createAccount(user: userInformation, password: password)
-                self.user = User(id: request.user.id,
-                                 username: request.user.pseudo,
-                                 email: request.user.email,
-                                 phone: request.user.phone)
-            } catch {
-                debugPrint(error)
-            }
+        do {
+            let request = try await webDataAccess.createAccount(user: userInformation, password: password)
+            self.user = User(id: request.user.id,
+                             username: request.user.pseudo,
+                             email: request.user.email,
+                             phone: request.user.phone)
             isLoading = false
-
+            return storeJWT(request.token)
+        } catch {
+            debugPrint(error)
         }
+        isLoading = false
+        return false
     }
 
     public func login(authentId: String, password: String) async -> Bool {

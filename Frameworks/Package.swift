@@ -9,6 +9,8 @@ let package = Package(
     products: [
         .library(name: "Models", targets: ["Models"]),
         .library(name: "Tools", targets: ["Tools"]),
+        .library(name: "UITools", targets: ["UITools"]),
+        .library(name: "Conversations", targets: ["Tools"]),
         .library(name: "Authentification", targets: ["Authentification"]),
     ],
     dependencies: [
@@ -20,8 +22,14 @@ let package = Package(
         .target(name: "Tools",
                 dependencies: ["Models"],
                 path: "./1-Tools/Sources"),
+        .target(name: "UITools",
+                dependencies: ["Models", "Tools"],
+                path: "./2-UITools/Sources"),
+        .target(name: "Conversations",
+                dependencies: ["Factory", "Tools", "Models", "UITools"],
+                path: "./3-Conversations/Sources"),
         .target(name: "Authentification",
-                dependencies: ["Factory", "Tools", "Models"],
-                path: "./2-Authentification/Sources")
+                dependencies: ["Factory", "Tools", "Models", "Conversations", "UITools"],
+                path: "./4-Authentification/Sources")
     ]
 )

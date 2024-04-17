@@ -15,8 +15,8 @@ public struct User: Codable {
         self.phone = phone
     }
 
-    public var id: String
-    public var username: String
-    public var email: String
-    public var phone: String
+    public let id: String
+    public let username: String
+    public let email: String
+    public let phone: String
 }

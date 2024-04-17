@@ -10,6 +10,7 @@ import Foundation
 public enum ApiEndpoint: String {
     case register = "users/register"
     case login = "users/login"
+    case myConversations = "conversations/"
 
     static private let baseURL = UserDefaultsManager().baseURL ?? "http://localhost:5002/"
 
