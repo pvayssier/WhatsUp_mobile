@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+import Models
 import Tools
+import Conversations
 
 public struct Authentification<ViewModel: AuthViewModelProtocol>: View {
 
@@ -14,6 +16,10 @@ public struct Authentification<ViewModel: AuthViewModelProtocol>: View {
 
     private let loginView: LoginView<ViewModel>
     private let registerView: RegisterView<ViewModel>
+    private let conversationsView: ConversationsListView = {
+        let viewModel = ConversationsListViewModel()
+        return ConversationsListView(viewModel: viewModel)
+    }()
 
     @State private var isShowingAdminModal: Bool = false
 
@@ -30,7 +36,7 @@ public struct Authentification<ViewModel: AuthViewModelProtocol>: View {
             } else if viewModel.viewState.authType == .register {
                 registerView
             } else {
-                Text("I'm authentified")
+                conversationsView
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification)) { _ in

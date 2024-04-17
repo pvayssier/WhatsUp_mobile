@@ -11,7 +11,6 @@ import Models
 
 public protocol AuthViewModelProtocol: ObservableObject {
     var viewState: AuthViewState { get set }
-    var isAnimating: Bool { get }
     func updateAuthType(_: AuthType)
     func didTapRegister()
     func didTapLogin()
@@ -20,7 +19,6 @@ public protocol AuthViewModelProtocol: ObservableObject {
 public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
 
     @Published public var viewState: AuthViewState
-    public var isAnimating = false
 
     @Injected(\.authentificationService) private var authentificationService
 
@@ -31,7 +29,6 @@ public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
     @MainActor
     public func updateAuthType(_ value: AuthType) {
         viewState.authType = value
-        isAnimating.toggle()
     }
 
     @MainActor
@@ -41,7 +38,14 @@ public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
                         email: viewState.email,
                         phone: viewState.phone)
 
-        authentificationService.createAccount(user: user, password: viewState.password)
+        Task {
+            let connectionSuccessed = await authentificationService.createAccount(user: user,
+                                                                                  password: viewState.password)
+
+            if connectionSuccessed {
+                updateAuthType(.authentified)
+            }
+        }
     }
 
     @MainActor
