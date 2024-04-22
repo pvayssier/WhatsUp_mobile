@@ -11,9 +11,11 @@ import Models
 
 public protocol AuthViewModelProtocol: ObservableObject {
     var viewState: AuthViewState { get set }
+    func viewDidAppear()
     func updateAuthType(_: AuthType)
     func didTapRegister()
     func didTapLogin()
+    func userNotLogged()
 }
 
 public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
@@ -21,14 +23,28 @@ public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
     @Published public var viewState: AuthViewState
 
     @Injected(\.authentificationService) private var authentificationService
+    @Injected(\.userDefaultsManager) private var userDefaultsManager
 
     public init(viewState: AuthViewState) {
         self.viewState = viewState
     }
 
     @MainActor
+    public func viewDidAppear() {
+        if userDefaultsManager.user != nil {
+            updateAuthType(.authentified)
+        }
+    }
+
+    @MainActor
     public func updateAuthType(_ value: AuthType) {
         viewState.authType = value
+    }
+
+    public func userNotLogged() {
+        Task {
+            await updateAuthType(.login)
+        }
     }
 
     @MainActor

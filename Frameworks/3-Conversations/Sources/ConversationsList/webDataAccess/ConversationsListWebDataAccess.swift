@@ -11,6 +11,7 @@ import Tools
 
 public protocol ConversationsListWebDataAccessProtocol {
     func fetchConversations() async throws -> [ConversationDTO]
+    func createConversation(conversation: CreateConversationDTO) async throws -> ConversationDTO
 }
 
 public class ConversationsListWebDataAccess: ConversationsListWebDataAccessProtocol {
@@ -20,6 +21,16 @@ public class ConversationsListWebDataAccess: ConversationsListWebDataAccessProto
                                                    method: .get(.none),
                                                    modelType: [ConversationDTO].self,
                                                    isAuthentified: true)
+        return try await HTTPClient.shared.load(resource)
+    }
+
+    public func createConversation(conversation: CreateConversationDTO) async throws -> ConversationDTO {
+        let conversationData = try JSONEncoder().encode(conversation)
+
+        let resource = Resource<ConversationDTO>(endpoint: .createConversation,
+                                                 method: .post(conversationData),
+                                                 modelType: ConversationDTO.self,
+                                                 isAuthentified: true)
         return try await HTTPClient.shared.load(resource)
     }
 }

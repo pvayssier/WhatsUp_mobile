@@ -11,8 +11,9 @@ public enum ApiEndpoint: String {
     case register = "users/register"
     case login = "users/login"
     case myConversations = "conversations/"
+    case createConversation = "conversations/create"
 
-    static private let baseURL = UserDefaultsManager().baseURL ?? "http://localhost:5002/"
+    static private let baseURL = UserDefaultsManager().baseURL ?? "http://localhost:3000/"
 
     static func endpointURL(for endpoint: ApiEndpoint) -> URL {
         guard let url = URL(string: baseURL + endpoint.rawValue) else {

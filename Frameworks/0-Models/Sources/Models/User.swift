@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct User: Codable {
+public struct User: Codable, Equatable {
     public init(id: String, username: String, email: String, phone: String) {
         self.id = id
         self.username = username

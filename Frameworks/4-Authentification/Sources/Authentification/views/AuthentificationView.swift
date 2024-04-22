@@ -10,16 +10,13 @@ import Models
 import Tools
 import Conversations
 
-public struct Authentification<ViewModel: AuthViewModelProtocol>: View {
+public struct AuthentificationView<ViewModel: AuthViewModelProtocol>: View {
 
     @ObservedObject private var viewModel: ViewModel
 
     private let loginView: LoginView<ViewModel>
     private let registerView: RegisterView<ViewModel>
-    private let conversationsView: ConversationsListView = {
-        let viewModel = ConversationsListViewModel()
-        return ConversationsListView(viewModel: viewModel)
-    }()
+    private let conversationsView: ConversationsListView<ConversationsListViewModel>
 
     @State private var isShowingAdminModal: Bool = false
 
@@ -27,6 +24,9 @@ public struct Authentification<ViewModel: AuthViewModelProtocol>: View {
         self.viewModel = viewModel
         self.loginView = LoginView(viewModel: viewModel)
         self.registerView = RegisterView(viewModel: viewModel)
+
+        let conversationsListViewModel = ConversationsListViewModel(userNotLogged: viewModel.userNotLogged)
+        self.conversationsView = ConversationsListView(viewModel: conversationsListViewModel)
     }
 
     public var body: some View {
@@ -38,6 +38,9 @@ public struct Authentification<ViewModel: AuthViewModelProtocol>: View {
             } else {
                 conversationsView
             }
+        }
+        .onAppear {
+            viewModel.viewDidAppear()
         }
         .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification)) { _ in
             isShowingAdminModal = true
@@ -51,6 +54,6 @@ public struct Authentification<ViewModel: AuthViewModelProtocol>: View {
 #if DEBUG
 #Preview {
     @State var viewModel: AuthViewModel = AuthViewModel(viewState: AuthViewState(authType: .login))
-    return Authentification(viewModel: viewModel)
+    return AuthentificationView(viewModel: viewModel)
 }
 #endif

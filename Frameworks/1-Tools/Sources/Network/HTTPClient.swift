@@ -8,7 +8,20 @@
 import Foundation
 import Network
 
-public enum NetworkError: Error {
+public enum NetworkError: Error, Equatable {
+    public static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+        switch (lhs, rhs) {
+        case (.badRequest, .badRequest),
+            (.unauthorized, .unauthorized),
+            (.ServerError, .ServerError):
+            return true
+        case (.decodingError(let error1), .decodingError(let error2)):
+            return error1.localizedDescription == error2.localizedDescription
+        default:
+            return false
+        }
+    }
+
     case badRequest
     case unauthorized
     case ServerError

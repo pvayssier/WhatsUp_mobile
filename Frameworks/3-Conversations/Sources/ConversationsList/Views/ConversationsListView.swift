@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import Models
 
 public struct ConversationsListView<ViewModel: ConversationsListViewModelProtocol>: View {
 
     @ObservedObject private var viewModel: ViewModel
+
+    @State private var presentAddConversationView: Bool = false
 
     public init(viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -31,7 +34,7 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            print("plus")
+                            presentAddConversationView.toggle()
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -51,6 +54,14 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
                     await viewModel.didForceRefresh()
                 }
             }
+            .sheet(isPresented: $presentAddConversationView) {
+                Task {
+                    await viewModel.didForceRefresh()
+                }
+            } content: {
+                let viewModel = AddConversationViewModel()
+                AddConversationView(viewModel: viewModel)
+            }
         }
         .onAppear {
             Task {
@@ -64,8 +75,7 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
 #if DEBUG
 struct ConversationsListView_Previews: PreviewProvider {
     static var previews: some View {
-        ConversationsListView(viewModel: ConversationsListViewModel())
+        ConversationsListView(viewModel: ConversationsListViewModel(userNotLogged: {}))
     }
 }
 #endif
-
