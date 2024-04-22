@@ -31,7 +31,7 @@ public struct ConversationDTO: Codable {
         case lastMessage = "last_message"
         case createAt = "created_at"
         case updateAt = "updated_at"
-        case pictureURL = "group_picture"
+        case pictureURL = "picture_url"
     }
 
     public let id: String

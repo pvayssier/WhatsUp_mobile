@@ -48,10 +48,16 @@ public struct Resource<T> {
     let method: HTTPMethod
     let modelType: T.Type
     let isAuthentified: Bool
+    let contentType: String
 
-    public init(endpoint: ApiEndpoint, method: HTTPMethod, modelType: T.Type, isAuthentified: Bool = false) {
+    public init(endpoint: ApiEndpoint, 
+                method: HTTPMethod,
+                contentType: String = "application/json",
+                modelType: T.Type,
+                isAuthentified: Bool = false) {
         self.url = ApiEndpoint.endpointURL(for: endpoint)
         self.method = method
+        self.contentType = contentType
         self.modelType = modelType
         self.isAuthentified = isAuthentified
     }
@@ -65,13 +71,13 @@ public struct HTTPClient {
     private init() {
         let configuration = URLSessionConfiguration.default
         // add the default header
-        configuration.httpAdditionalHeaders = ["Content-Type": "application/json"]
         self.session = URLSession(configuration: configuration)
     }
 
     public func load<T: Codable>(_ resource: Resource<T>) async throws -> T {
 
         var request = URLRequest(url: resource.url)
+        request.setValue(resource.contentType, forHTTPHeaderField: "Content-Type")
 
         if resource.isAuthentified, let token = KeychainHelper.retrieveJWT() {
             request.addValue("Bearer \(token)",

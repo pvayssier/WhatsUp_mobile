@@ -30,10 +30,9 @@ final class AddConversationViewModel: AddConversationViewModelProtocol, Observab
         let pictureData = conversationPicture?.jpegData(compressionQuality: 1)
         let conversationName: String? = self.conversationName.isEmpty ? nil : self.conversationName
         Task {
-            let test = try await conversationsListService.createConversation(image: pictureData,
-                                                            conversationName: conversationName,
-                                                            conversationMembers: conversationMembers)
-            print(test)
+            try await conversationsListService.createConversation(image: pictureData,
+                                                                  conversationName: conversationName,
+                                                                  conversationMembers: conversationMembers)
         }
     }
 }
