@@ -44,7 +44,7 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
                              email: request.user.email,
                              phone: request.user.phone)
             isLoading = false
-            return storeJWT(request.token)
+            return dataPersisted(user: user,jwt: request.token)
         } catch {
             debugPrint(error)
         }
@@ -61,10 +61,13 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
                          email: request.user.email,
                          phone: request.user.phone)
 
-        userDefaultsManager.user = user
-
         isLoading = false
-        return storeJWT(request.token)
+        return dataPersisted(user: user,jwt: request.token)
+    }
+
+    private func dataPersisted(user: User?, jwt: String) -> Bool {
+        userDefaultsManager.user = user
+        return storeJWT(jwt) && userDefaultsManager.user == user
     }
 
     private func storeJWT(_ jwt: String) -> Bool {

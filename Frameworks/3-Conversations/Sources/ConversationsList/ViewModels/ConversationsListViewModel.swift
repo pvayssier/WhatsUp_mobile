@@ -8,6 +8,7 @@
 import Foundation
 import Factory
 import Models
+import Tools
 
 public protocol ConversationsListViewModelProtocol: ObservableObject {
     func viewDidAppear() async
@@ -17,23 +18,38 @@ public protocol ConversationsListViewModelProtocol: ObservableObject {
 
 final public class ConversationsListViewModel: ConversationsListViewModelProtocol {
 
-    @Injected(\.conversationsListService) private var conversationsListService
-
     @Published public private(set) var conversations: [Conversation] = []
 
-    public init() { }
+    @Injected(\.conversationsListService) private var conversationsListService
+    private let userNotLogged: () -> Void
+
+    public init(userNotLogged: @escaping () -> Void) {
+        self.userNotLogged = userNotLogged
+    }
 
     @MainActor
     public func viewDidAppear() {
         Task {
-            conversations = await conversationsListService.fetchConversations()
+            do {
+                conversations = try await conversationsListService.fetchConversations()
+            } catch {
+                if let error = error as? NetworkError, error == NetworkError.unauthorized {
+                    userNotLogged()
+                }
+            }
         }
     }
 
     @MainActor
     public func didForceRefresh() {
         Task {
-            conversations = await conversationsListService.fetchConversations()
+            do {
+                conversations = try await conversationsListService.fetchConversations()
+            } catch {
+                if let error = error as? NetworkError, error == NetworkError.unauthorized {
+                    userNotLogged()
+                }
+            }
         }
     }
 }

@@ -8,7 +8,20 @@
 import Foundation
 import Network
 
-public enum NetworkError: Error {
+public enum NetworkError: Error, Equatable {
+    public static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+        switch (lhs, rhs) {
+        case (.badRequest, .badRequest),
+            (.unauthorized, .unauthorized),
+            (.ServerError, .ServerError):
+            return true
+        case (.decodingError(let error1), .decodingError(let error2)):
+            return error1.localizedDescription == error2.localizedDescription
+        default:
+            return false
+        }
+    }
+
     case badRequest
     case unauthorized
     case ServerError
@@ -35,10 +48,16 @@ public struct Resource<T> {
     let method: HTTPMethod
     let modelType: T.Type
     let isAuthentified: Bool
+    let contentType: String
 
-    public init(endpoint: ApiEndpoint, method: HTTPMethod, modelType: T.Type, isAuthentified: Bool = false) {
+    public init(endpoint: ApiEndpoint, 
+                method: HTTPMethod,
+                contentType: String = "application/json",
+                modelType: T.Type,
+                isAuthentified: Bool = false) {
         self.url = ApiEndpoint.endpointURL(for: endpoint)
         self.method = method
+        self.contentType = contentType
         self.modelType = modelType
         self.isAuthentified = isAuthentified
     }
@@ -52,13 +71,13 @@ public struct HTTPClient {
     private init() {
         let configuration = URLSessionConfiguration.default
         // add the default header
-        configuration.httpAdditionalHeaders = ["Content-Type": "application/json"]
         self.session = URLSession(configuration: configuration)
     }
 
     public func load<T: Codable>(_ resource: Resource<T>) async throws -> T {
 
         var request = URLRequest(url: resource.url)
+        request.setValue(resource.contentType, forHTTPHeaderField: "Content-Type")
 
         if resource.isAuthentified, let token = KeychainHelper.retrieveJWT() {
             request.addValue("Bearer \(token)",
