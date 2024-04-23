@@ -10,11 +10,13 @@ let package = Package(
         .library(name: "Models", targets: ["Models"]),
         .library(name: "Tools", targets: ["Tools"]),
         .library(name: "UITools", targets: ["UITools"]),
+        .library(name: "Conversation", targets: ["Conversation"]),
         .library(name: "Conversations", targets: ["Tools"]),
         .library(name: "Authentification", targets: ["Authentification"]),
     ],
     dependencies: [
-            .package(url: "https://github.com/hmlongco/Factory.git", from: "2.3.0")
+        .package(url: "https://github.com/hmlongco/Factory.git", from: "2.3.0"),
+        .package(url: "https://github.com/socketio/socket.io-client-swift.git", from: "16.0.0")
     ],
     targets: [
         .target(name: "Models",
@@ -25,8 +27,11 @@ let package = Package(
         .target(name: "UITools",
                 dependencies: ["Models", "Tools"],
                 path: "./2-UITools/Sources"),
-        .target(name: "Conversations",
+        .target(name: "Conversation",
                 dependencies: ["Factory", "Tools", "Models", "UITools"],
+                path: "./3-Conversation/Sources"),
+        .target(name: "Conversations",
+                dependencies: ["Factory", "Tools", "Models", "UITools", "Conversation"],
                 path: "./3-Conversations/Sources"),
         .target(name: "Authentification",
                 dependencies: ["Factory", "Tools", "Models", "Conversations", "UITools"],

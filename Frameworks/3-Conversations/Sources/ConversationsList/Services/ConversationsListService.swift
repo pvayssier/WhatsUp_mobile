@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+import Factory
 import Models
 import Tools
 
@@ -50,7 +52,6 @@ final public class ConversationsListService: ConversationsListServiceProtocol {
 
                 let createdAtDate = formatter.date(from: conversationDTO.createAt) ?? Date()
                 let updatedAtDate = formatter.date(from: conversationDTO.updateAt) ?? Date()
-
 
                 return Conversation(id: conversationDTO.id,
                                     name: conversationDTO.name,

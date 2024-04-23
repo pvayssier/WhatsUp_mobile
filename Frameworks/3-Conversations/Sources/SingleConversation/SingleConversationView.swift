@@ -19,16 +19,22 @@ public struct SingleConversationView<ViewModel: SingleConversationViewStateProto
 
     public var body: some View {
         HStack {
-                viewModel.picture
+            if let conversationPicture = viewModel.picture {
+                conversationPicture
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
-                    .padding(.init(top: 10,
-                                   leading: 10,
-                                   bottom: 10,
-                                   trailing: 4))
-
+            } else {
+                Image(systemName: "person.2.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .padding(10)
+                    .frame(width: 50, height: 50)
+                    .foregroundStyle(.white)
+                    .background(Color(.systemGray3))
+                    .clipShape(Circle())
+            }
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
 
@@ -56,8 +62,8 @@ public struct SingleConversationView<ViewModel: SingleConversationViewStateProto
             .padding(.trailing, 4)
             Spacer()
         }
-        
         .frame(height: 70)
+        .padding(.leading, 4)
     }
 }
 
