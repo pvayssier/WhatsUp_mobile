@@ -17,7 +17,7 @@ fileprivate extension UIImage {
             let data = try await URLSession.shared.data(from: url).0
             return UIImage(data: data)
         } catch {
-            print("Failed to load image from URL: \(error)")
+            debugPrint("Failed to load image from URL: \(error)")
             return nil
         }
     }

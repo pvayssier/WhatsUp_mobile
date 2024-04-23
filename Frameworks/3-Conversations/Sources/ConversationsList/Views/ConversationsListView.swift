@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Models
+import ChatConversation
 
 public struct ConversationsListView<ViewModel: ConversationsListViewModelProtocol>: View {
 
@@ -22,13 +23,22 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
         NavigationView {
             ScrollView {
                 ForEach(viewModel.conversations) { conversation in
-                    VStack {
-                        SingleConversationView(viewModel: SingleConversationViewState(conversation: conversation))
-                        if conversation != viewModel.conversations.last {
-                            Divider()
-                                .padding(.leading, 70)
+                    NavigationLink(destination:
+                                    ChatConversationView(viewModel: ChatConversationViewModel(conversationId: conversation.id,
+                                                                                              didClickBack: viewModel.didQuitSubview))
+                                        .onAppear {
+                                            viewModel.didSelectConversation()
+                                        }
+                    ) {
+                        VStack {
+                            SingleConversationView(viewModel: SingleConversationViewState(conversation: conversation))
+                            if conversation != viewModel.conversations.last {
+                                Divider()
+                                    .padding(.leading, 70)
+                            }
                         }
                     }
+                    .buttonStyle(.plain)
                 }
                 .navigationTitle("Conversations")
                 .toolbar {

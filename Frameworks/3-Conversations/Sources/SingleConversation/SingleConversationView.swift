@@ -29,7 +29,7 @@ public struct SingleConversationView<ViewModel: SingleConversationViewStateProto
                 Image(systemName: "person.2.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .padding(10)
+                    .padding(12)
                     .frame(width: 50, height: 50)
                     .foregroundStyle(.white)
                     .background(Color(.systemGray3))
