@@ -17,6 +17,7 @@ public protocol ChatConversationViewModelProtocol: ObservableObject {
     var myUser: User { get }
     var onDisappear: () -> Void { get }
     var groupPicture: Image? { get }
+    var usersPicture: [String: Image?] { get }
     func viewDidAppear()
     func didClickSend()
 }
@@ -30,6 +31,7 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
                                                                                 users: [],
                                                                                 pictureURL: nil)
     @Published public var groupPicture: Image?
+    @Published public var usersPicture: [String: Image?] = [:]
 
     public let onDisappear: () -> Void
     public var pendingMessage: String = ""
@@ -56,7 +58,7 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
         Task {
             do {
                 chatConversation = try await chatConversationService.fetchMessages(conversationId: conversationId)
-                setupPicture(with: chatConversation.pictureURL)
+                setupPictures(with: chatConversation.pictureURL)
             } catch {
                 debugPrint(error)
             }
@@ -112,10 +114,17 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
     }
 
     @MainActor
-    private func setupPicture(with url: URL?) {
+    private func setupPictures(with url: URL?) {
         guard let url else { return }
         Task {
             self.groupPicture = await Image.loadAsync(from: url, defaultImage: Image(systemName: "person.2.fill"))
+        }
+        self.chatConversation.users.forEach { user in
+            if let pictureURL = user.pictureUrl {
+                Task {
+                    self.usersPicture[user.id] = await Image.loadAsync(from: pictureURL, defaultImage: Image(systemName: "person.2.fill"))
+                }
+            }
         }
     }
 }

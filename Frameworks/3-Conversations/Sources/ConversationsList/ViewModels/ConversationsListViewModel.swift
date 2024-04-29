@@ -113,10 +113,17 @@ final public class ConversationsListViewModel: ConversationsListViewModelProtoco
 
     private func dataToConversation(conversationDTO: ConversationDTO) -> Conversation {
                 let users = conversationDTO.users.map {
-                    User(id: $0.id,
-                         username: $0.pseudo,
-                         email: $0.email,
-                         phone: $0.phone)
+                    if let pictureUrl = $0.pictureUrl {
+                        return User(id: $0.id,
+                                    username: $0.pseudo,
+                                    email: $0.email,
+                                    phone: $0.phone,
+                                    pictureUrl: URL(string: pictureUrl))
+                    }
+                    return User(id: $0.id,
+                                username: $0.pseudo,
+                                email: $0.email,
+                                phone: $0.phone)
                 }
 
                 let formatter = DateFormatter()

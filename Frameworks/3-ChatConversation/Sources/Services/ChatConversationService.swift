@@ -31,7 +31,8 @@ final class ChatConversationService: ChatConversationServiceProtocol {
             return User(id: userDTO.id,
                         username: userDTO.pseudo,
                         email: userDTO.email,
-                        phone: userDTO.phone)
+                        phone: userDTO.phone,
+                        pictureUrl: URL(string: userDTO.pictureUrl ?? ""))
         }
 
         let messages = chatConversationDTO.messages.map { messageDTO -> Message in
