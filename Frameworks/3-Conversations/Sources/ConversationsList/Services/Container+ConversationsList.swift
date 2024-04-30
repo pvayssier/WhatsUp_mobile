@@ -7,6 +7,7 @@
 
 import Foundation
 import Factory
+import Tools
 
 extension Container {
     public var conversationsListService: Factory<ConversationsListServiceProtocol> {
@@ -14,5 +15,9 @@ extension Container {
             let webDataAccess = ConversationsListWebDataAccess()
             return ConversationsListService(webDataAccess: webDataAccess)
         }
+    }
+
+    public var userDefaultsManager: Factory<UserDefaultsManagerProtocol> {
+        self { UserDefaultsManager() }
     }
 }

@@ -11,7 +11,8 @@
 		FF6E06F42BC43D31007DC4B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */; };
 		FF6E06F72BC43D31007DC4B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F62BC43D31007DC4B1 /* Preview Assets.xcassets */; };
 		FF82C7672BCD53DE00B7A3BE /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = FF82C7662BCD53DE00B7A3BE /* Factory */; };
-		FF82C7762BCEA6E800B7A3BE /* Authentification in Frameworks */ = {isa = PBXBuildFile; productRef = FF82C7752BCEA6E800B7A3BE /* Authentification */; };
+		FF8B296D2BD6B07500CEEB0A /* Authentification in Frameworks */ = {isa = PBXBuildFile; productRef = FF8B296C2BD6B07500CEEB0A /* Authentification */; };
+		FF8B29762BD6CFC400CEEB0A /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = FF8B29752BD6CFC400CEEB0A /* SocketIO */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,8 +40,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF8B296D2BD6B07500CEEB0A /* Authentification in Frameworks */,
 				FF82C7672BCD53DE00B7A3BE /* Factory in Frameworks */,
-				FF82C7762BCEA6E800B7A3BE /* Authentification in Frameworks */,
+				FF8B29762BD6CFC400CEEB0A /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +102,8 @@
 			name = WhatsUpApp;
 			packageProductDependencies = (
 				FF82C7662BCD53DE00B7A3BE /* Factory */,
-				FF82C7752BCEA6E800B7A3BE /* Authentification */,
+				FF8B296C2BD6B07500CEEB0A /* Authentification */,
+				FF8B29752BD6CFC400CEEB0A /* SocketIO */,
 			);
 			productName = WhatsUp;
 			productReference = FF82C7642BCD09F500B7A3BE /* WhatsUpApp.app */;
@@ -133,6 +136,7 @@
 			packageReferences = (
 				FF6E07882BC47829007DC4B1 /* XCLocalSwiftPackageReference "../../Frameworks" */,
 				FF82C7652BCD53DE00B7A3BE /* XCRemoteSwiftPackageReference "Factory" */,
+				FF8B29742BD6CFC400CEEB0A /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 			);
 			productRefGroup = FF6E06E32BC43D30007DC4B1;
 			projectDirPath = "";
@@ -387,6 +391,14 @@
 				minimumVersion = 2.3.2;
 			};
 		};
+		FF8B29742BD6CFC400CEEB0A /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -395,9 +407,14 @@
 			package = FF82C7652BCD53DE00B7A3BE /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
 		};
-		FF82C7752BCEA6E800B7A3BE /* Authentification */ = {
+		FF8B296C2BD6B07500CEEB0A /* Authentification */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Authentification;
+		};
+		FF8B29752BD6CFC400CEEB0A /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF8B29742BD6CFC400CEEB0A /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

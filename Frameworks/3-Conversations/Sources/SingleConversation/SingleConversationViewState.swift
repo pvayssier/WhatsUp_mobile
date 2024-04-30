@@ -13,12 +13,12 @@ public protocol SingleConversationViewStateProtocol: ObservableObject {
     var groupName: String { get }
     var formatLastMessage: String { get }
     var formatDate: String { get }
-    var picture: Image { get }
+    var picture: Image? { get }
 }
 
 final public class SingleConversationViewState: SingleConversationViewStateProtocol {
 
-    @Published public var picture: Image = Image(systemName: "person.2")
+    @Published public var picture: Image?
 
     public var groupName: String = ""
     public var formatLastMessage: String = ""
@@ -42,9 +42,7 @@ final public class SingleConversationViewState: SingleConversationViewStateProto
 
     @MainActor
     private func setupPicture(with url: URL?) {
-        guard let url else {
-            return
-        }
+        guard let url else { return }
         Task {
             self.picture = await Image.loadAsync(from: url, defaultImage: Image(systemName: "person.2.fill"))
         }
