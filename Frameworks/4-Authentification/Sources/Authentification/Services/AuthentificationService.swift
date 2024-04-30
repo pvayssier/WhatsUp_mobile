@@ -42,7 +42,8 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
             self.user = User(id: request.user.id,
                              username: request.user.pseudo,
                              email: request.user.email,
-                             phone: request.user.phone)
+                             phone: request.user.phone,
+                             pictureUrl: URL(string: request.user.pictureUrl ?? ""))
             isLoading = false
             return dataPersisted(user: user,jwt: request.token)
         } catch {
@@ -59,7 +60,8 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
         self.user = User(id: request.user.id,
                          username: request.user.pseudo,
                          email: request.user.email,
-                         phone: request.user.phone)
+                         phone: request.user.phone,
+                         pictureUrl: URL(string: request.user.pictureUrl ?? ""))
 
         isLoading = false
         return dataPersisted(user: user,jwt: request.token)

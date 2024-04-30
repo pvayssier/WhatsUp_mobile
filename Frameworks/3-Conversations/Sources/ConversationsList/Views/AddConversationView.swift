@@ -85,7 +85,7 @@ struct AddConversationView<ViewModel: AddConversationViewModelProtocol>: View {
                                 viewModel.conversationPicture = image
                             }
                         } else {
-                            print("Failed")
+                            debugPrint("Failed")
                         }
                     }
                 }

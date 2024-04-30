@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Message: Codable {
+public struct Message: Codable, Equatable {
     public init(id: String, content: String, senderId: String, createdAt: Date) {
         self.id = id
         self.content = content

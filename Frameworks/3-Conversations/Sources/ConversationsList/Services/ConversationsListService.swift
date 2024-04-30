@@ -30,10 +30,17 @@ final public class ConversationsListService: ConversationsListServiceProtocol {
             let conversationsDTO = try await webDataAccess.fetchConversations()
             return conversationsDTO.map { conversationDTO -> Conversation in
                 let users = conversationDTO.users.map {
-                    User(id: $0.id,
-                         username: $0.pseudo,
-                         email: $0.email,
-                         phone: $0.phone)
+                    if let pictureURL = $0.pictureUrl {
+                        return User(id: $0.id,
+                                    username: $0.pseudo,
+                                    email: $0.email,
+                                    phone: $0.phone,
+                                    pictureUrl: URL(string: pictureURL))
+                    }
+                    return User(id: $0.id,
+                                username: $0.pseudo,
+                                email: $0.email,
+                                phone: $0.phone)
                 }
 
                 let formatter = DateFormatter()

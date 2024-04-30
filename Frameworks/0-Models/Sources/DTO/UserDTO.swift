@@ -12,11 +12,13 @@ public struct UserDTO: Codable {
     public let pseudo: String
     public let email: String
     public let phone: String
+    public let pictureUrl: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case pseudo
         case email
         case phone
+        case pictureUrl = "picture_url"
     }
 }
