@@ -32,9 +32,17 @@ public struct AuthentificationView<ViewModel: AuthViewModelProtocol>: View {
     public var body: some View {
         Group {
             if viewModel.viewState.authType == .login {
-                loginView
+                if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    loginView
+                }
             } else if viewModel.viewState.authType == .register {
-                registerView
+                if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    registerView
+                }
             } else {
                 conversationsView
             }

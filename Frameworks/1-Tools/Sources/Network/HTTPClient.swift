@@ -120,11 +120,16 @@ public struct HTTPClient {
         if let httpResponse = response as? HTTPURLResponse {
 
             switch httpResponse.statusCode {
+            case 400:
+                throw NetworkError.badRequest
             case 401:
                 throw NetworkError.unauthorized
             case 500:
                 throw NetworkError.ServerError
-            default: break
+            case 200...299:
+                break
+            default:
+                throw NetworkError.ServerError
             }
 
         }

@@ -40,15 +40,27 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .overlay {
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(.green, lineWidth: 1)
+                                .stroke(viewModel.isValidPhoneNumber ? .green : .red, lineWidth: 1)
                         }
                         .padding(.horizontal, 16)
-                        .padding(.vertical, 4)
+                        .padding(.top, 4)
                         .textInputAutocapitalization(.never)
                         .keyboardType(.numberPad)
                         .textContentType(.telephoneNumber)
                         .autocorrectionDisabled(true)
-
+                        .onChange(of: viewModel.viewState.phone) { newValue in
+                            if newValue.count > 10 {
+                                viewModel.viewState.phone = String(viewModel.viewState.phone.prefix(10))
+                            }
+                        }
+                    HStack {
+                        Text("Invalid phone number")
+                            .font(.caption)
+                            .foregroundColor(!viewModel.isValidPhoneNumber ? .red : .clear)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 4)
+                        Spacer()
+                    }
                     SecureField("Password", text: $viewModel.viewState.password)
                         .padding(.horizontal, 10)
                         .frame(height: 50)
@@ -56,11 +68,35 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                         .overlay {
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(.green, lineWidth: 1)
+                                .stroke(viewModel.isValidPassword ? .green : .red, lineWidth: 1)
                         }
                         .padding(.horizontal, 16)
-                        .padding(.vertical, 4)
-
+                        .padding(.top, 4)
+                    if !viewModel.isValidPassword {
+                        HStack {
+                            Text("""
+Password must contain at least:
+- 8 characters
+- 1 uppercase letter
+- 1 lowercase letter
+- 1 number
+- 1 special character
+""")
+                            .font(.caption)
+                            .foregroundColor(.red)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 4)
+                            Spacer()
+                        }
+                    }
+                    if let error = viewModel.authentificationError {
+                        Text(error)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 4)
+                            .padding(.top, 20)
+                    }
                     Button(action: {
                         viewModel.didTapLogin()
                     }, label: {
@@ -73,7 +109,7 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                     .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                     .foregroundStyle(.white)
                     .padding(.horizontal, 20)
-                    .padding(.top, 20)
+                    .padding(.top, viewModel.authentificationError == nil ? 20 : 4)
 
                     HStack {
                         Text("You don't have an account ?")
