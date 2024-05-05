@@ -55,12 +55,22 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(.green, lineWidth: 1)
+                            .stroke(viewModel.isValidEmail ? .green : .red, lineWidth: 1)
                     }
                     .padding(.horizontal, 16)
-                    .padding(.vertical, 4)
+                    .padding(.top, 4)
                     .keyboardType(.emailAddress)
                     .textInputAutocapitalization(.never)
+                if !viewModel.isValidEmail {
+                    HStack {
+                        Text("Invalid email")
+                            .font(.caption)
+                            .foregroundColor(!viewModel.isValidEmail ? .red : .clear)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 4)
+                        Spacer()
+                    }
+                }
 
                 TextField("Phone number", text: $viewModel.viewState.phone)
                     .padding(.horizontal, 10)
@@ -69,12 +79,27 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(.green, lineWidth: 1)
+                            .stroke(viewModel.isValidPhoneNumber ? .green : .red, lineWidth: 1)
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 4)
                     .keyboardType(.numberPad)
                     .textInputAutocapitalization(.never)
+                    .onChange(of: viewModel.viewState.phone) { newValue in
+                        if newValue.count > 10 {
+                            viewModel.viewState.phone = String(viewModel.viewState.phone.prefix(10))
+                        }
+                    }
+                if !viewModel.isValidPhoneNumber {
+                    HStack {
+                        Text("Invalid phone number")
+                            .font(.caption)
+                            .foregroundColor(!viewModel.isValidPhoneNumber ? .red : .clear)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 4)
+                        Spacer()
+                    }
+                }
 
                 SecureField("Password", text: $viewModel.viewState.password)
                     .padding(.horizontal, 10)
@@ -83,11 +108,38 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(.green, lineWidth: 1)
+                            .stroke(viewModel.isValidPassword ? .green : .red, lineWidth: 1)
                     }
                     .padding(.horizontal, 16)
-                    .padding(.vertical, 4)
-
+                    .padding(.top, 4)
+                if !viewModel.isValidPassword {
+                    HStack {
+                        Text("""
+Password must contain at least:
+- 8 characters
+- 1 uppercase letter
+- 1 lowercase letter
+- 1 number
+- 1 special character
+""")
+                        .font(.caption)
+                        .foregroundColor(.red)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 4)
+                        Spacer()
+                    }
+                }
+                if let error = viewModel.authentificationError {
+                    HStack {
+                        Text(error)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 4)
+                            .padding(.top, 20)
+                        Spacer()
+                    }
+                }
                 Button(action: {
                     viewModel.didTapRegister()
                 }, label: {
@@ -100,7 +152,7 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .foregroundStyle(.white)
                 .padding(.horizontal, 20)
-                .padding(.top, 20)
+                .padding(.top, viewModel.authentificationError == nil ? 20 : 0)
 
                 HStack {
                     Text("You have an account ?")

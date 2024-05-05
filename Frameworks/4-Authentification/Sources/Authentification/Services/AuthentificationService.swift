@@ -12,9 +12,8 @@ import Tools
 
 public protocol AuthentificationServiceProtocol {
     var user: User? { get }
-    var isLoading: Bool { get }
-    func login(phone: String, password: String) async -> Bool
-    func createAccount(user: User, password: String) async -> Bool
+    func login(phone: String, password: String) async throws -> Bool
+    func createAccount(user: User, password: String) async throws -> Bool
 }
 
 enum AuthentificationError: Error {
@@ -25,8 +24,6 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
 
     @Published public var user: User?
 
-    @Published public var isLoading: Bool = false
-
     @Injected(\.userDefaultsManager) private var userDefaultsManager
 
     private var webDataAccess: AuthentificationWebDataAccessProtocol
@@ -35,27 +32,18 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
         self.webDataAccess = webDataAccess
     }
 
-    public func createAccount(user userInformation: User, password: String) async -> Bool {
-        isLoading = true
-        do {
-            let request = try await webDataAccess.createAccount(user: userInformation, password: password)
-            self.user = User(id: request.user.id,
-                             username: request.user.pseudo,
-                             email: request.user.email,
-                             phone: request.user.phone,
-                             pictureUrl: URL(string: request.user.pictureUrl ?? ""))
-            isLoading = false
-            return dataPersisted(user: user,jwt: request.token)
-        } catch {
-            debugPrint(error)
-        }
-        isLoading = false
-        return false
+    public func createAccount(user userInformation: User, password: String) async throws -> Bool {
+        let request = try await webDataAccess.createAccount(user: userInformation, password: password)
+        self.user = User(id: request.user.id,
+                         username: request.user.pseudo,
+                         email: request.user.email,
+                         phone: request.user.phone,
+                         pictureUrl: URL(string: request.user.pictureUrl ?? ""))
+        return dataPersisted(user: user,jwt: request.token)
     }
 
-    public func login(phone: String, password: String) async -> Bool {
-        isLoading = true
-        guard let request = try? await webDataAccess.login(phone: phone, password: password) else { return false }
+    public func login(phone: String, password: String) async throws -> Bool {
+        let request = try await webDataAccess.login(phone: phone, password: password)
 
         self.user = User(id: request.user.id,
                          username: request.user.pseudo,
@@ -63,7 +51,6 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
                          phone: request.user.phone,
                          pictureUrl: URL(string: request.user.pictureUrl ?? ""))
 
-        isLoading = false
         return dataPersisted(user: user,jwt: request.token)
     }
 
