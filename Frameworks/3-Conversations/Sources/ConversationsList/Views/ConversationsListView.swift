@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Models
+import UITools
 import ChatConversation
 
 public struct ConversationsListView<ViewModel: ConversationsListViewModelProtocol>: View {
@@ -14,6 +15,7 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
     @ObservedObject private var viewModel: ViewModel
 
     @State private var presentAddConversationView: Bool = false
+    @State private var presentEditProfileView: Bool = false
 
     public init(viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -52,9 +54,19 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
                     }
                     ToolbarItem(placement: .cancellationAction) {
                         Button {
-                            print("settings")
+                            presentEditProfileView = true
                         } label: {
-                            Image(systemName: "gear")
+                            Group {
+                                if let picture = viewModel.userPicture {
+                                    picture
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 30, height: 30)
+                                        .clipShape(Circle())
+                                } else {
+                                    Image(systemName: "person.circle")
+                                }
+                            }
                         }
                     }
                 }
@@ -71,6 +83,10 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
             } content: {
                 let viewModel = AddConversationViewModel()
                 AddConversationView(viewModel: viewModel)
+            }
+            .sheet(isPresented: $presentEditProfileView) {
+                let viewModel = EditProfileViewModel(picture: viewModel.userPicture, viewModel.userNotLogged)
+                EditProfileView(viewModel: viewModel)
             }
         }
         .onAppear {

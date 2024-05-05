@@ -43,4 +43,13 @@ public class KeychainHelper {
         return String(data: data, encoding: .utf8)
     }
 
+    public static func deleteJWT() -> Bool {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: Constants.service,
+            kSecAttrAccount as String: Constants.key
+        ]
+        let status = SecItemDelete(query as CFDictionary)
+        return status == errSecSuccess
+    }
 }

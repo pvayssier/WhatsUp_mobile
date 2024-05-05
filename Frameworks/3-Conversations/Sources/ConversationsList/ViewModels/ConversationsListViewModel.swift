@@ -5,7 +5,7 @@
 //  Created by Paul VAYSSIER on 16/04/2024.
 //
 
-import Foundation
+import SwiftUI
 import Factory
 import SocketIO
 import Models
@@ -17,15 +17,20 @@ public protocol ConversationsListViewModelProtocol: ObservableObject {
     func didSelectConversation()
     func didQuitSubview()
     var conversations: [Conversation] { get }
+    var myUser: User { get }
+    var userPicture: Image? { get }
+    var userNotLogged: () -> Void { get }
 }
 
 final public class ConversationsListViewModel: ConversationsListViewModelProtocol {
 
     @Published public private(set) var conversations: [Conversation] = []
+    public let myUser: User
+    public var userPicture: Image?
+    public let userNotLogged: () -> Void
 
     @Injected(\.conversationsListService) private var conversationsListService
     private var userDefaults: UserDefaultsManagerProtocol
-    private let userNotLogged: () -> Void
 
     // WebSocket
     private var socketManager: SocketManager
@@ -36,6 +41,17 @@ final public class ConversationsListViewModel: ConversationsListViewModelProtoco
         self.userDefaults = Container.shared.userDefaultsManager()
         socketManager = SocketManager(socketURL: URL(string: userDefaults.baseURL ?? "http://172.16.70.196:3000/")!)
         socketClient = socketManager.defaultSocket
+        myUser = userDefaults.user ?? User(id: "", username: "", email: "", phone: "")
+
+        Task {
+            if let url = myUser.pictureUrl {
+                Task {
+                    userPicture = await Image.loadAsync(from: url)
+                }
+            } else {
+                userPicture = nil
+            }
+        }
     }
 
     @MainActor

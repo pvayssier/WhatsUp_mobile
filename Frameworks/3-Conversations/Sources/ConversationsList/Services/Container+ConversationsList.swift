@@ -17,6 +17,13 @@ extension Container {
         }
     }
 
+    public var editProfileService: Factory<EditProfileServiceProtocol> {
+        self {
+            let webDataAccess = EditProfileWebDataAccess()
+            return EditProfileService(webDataAccess: webDataAccess)
+        }
+    }
+
     public var userDefaultsManager: Factory<UserDefaultsManagerProtocol> {
         self { UserDefaultsManager() }
     }

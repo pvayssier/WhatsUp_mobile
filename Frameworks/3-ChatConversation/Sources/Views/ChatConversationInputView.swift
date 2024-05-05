@@ -26,6 +26,7 @@ struct MessageInputView: View {
                 .padding(.vertical, 4)
                 .onSubmit {
                     action(text)
+                    text = ""
                 }
             Button(action: {
                 guard !text.isEmpty else { return }

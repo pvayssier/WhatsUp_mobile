@@ -22,3 +22,17 @@ public struct User: Codable, Equatable {
     public let phone: String
     public let pictureUrl: URL?
 }
+
+extension User {
+    public init(dto: UserDTO) {
+        self.id = dto.id
+        self.username = dto.pseudo
+        self.email = dto.email
+        self.phone = dto.phone
+        if let pictureUrl = dto.pictureUrl {
+            self.pictureUrl = URL(string: pictureUrl)
+        } else {
+            self.pictureUrl = nil
+        }
+    }
+}
