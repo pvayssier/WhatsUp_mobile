@@ -33,7 +33,7 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                         .bold()
                         .padding(.bottom, 40)
 
-                    TextField("Email", text: $viewModel.viewState.email)
+                    TextField("Phone number", text: $viewModel.viewState.phone)
                         .padding(.horizontal, 10)
                         .frame(height: 50)
                         .background(Color("textField_color", bundle: .module))
@@ -45,8 +45,8 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                         .padding(.horizontal, 16)
                         .padding(.vertical, 4)
                         .textInputAutocapitalization(.never)
-                        .keyboardType(.emailAddress)
-                        .textContentType(.emailAddress)
+                        .keyboardType(.numberPad)
+                        .textContentType(.telephoneNumber)
                         .autocorrectionDisabled(true)
 
                     SecureField("Password", text: $viewModel.viewState.password)

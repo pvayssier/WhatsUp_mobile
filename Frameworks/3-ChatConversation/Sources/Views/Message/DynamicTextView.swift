@@ -47,7 +47,10 @@ struct DynamicTextView: View {
     private func calculateTexts() {
         // Dummy logic for text measurement
         // In a real scenario, you would use UIKit to measure and adjust
-        dynamicText = splitText(fullText: fullText, font: UIFont.systemFont(ofSize: 17), width: UIScreen.main.bounds.width - 60, endText: endText)
+        dynamicText = splitText(fullText: fullText,
+                                font: UIFont.systemFont(ofSize: 17),
+                                width: UIScreen.main.bounds.width,
+                                endText: endText)
     }
 
     private func splitText(fullText: String, font: UIFont, width: CGFloat, endText: String) -> (main: String, last: String) {
@@ -69,11 +72,25 @@ struct DynamicTextView: View {
         guard let lastLineStartIndex else {
             return  (main: "", last: fullText)
         }
-        
+        if let splitText = splitOnSpace(text: String(fullText[..<lastLineStartIndex])) {
+            let mainText = splitText.main
+            let lastLineText = splitText.spleeted + String(fullText[lastLineStartIndex...])
+            return (main: mainText, last: lastLineText)
+        }
+
+
         let mainText = String(fullText[..<lastLineStartIndex]) + "-"
         let lastLineText = String(fullText[lastLineStartIndex...])
-
         return (main: mainText, last: lastLineText)
+    }
+
+    private func splitOnSpace(text: String) -> (main: String, spleeted: String)? {
+        var words = text.split(separator: " ")
+        if let lastWord = words.last, lastWord.count <= 7 {
+            words.removeLast()
+            return (main: words.joined(separator: " "), spleeted: String(lastWord))
+        }
+        return nil
     }
 }
 

@@ -67,7 +67,7 @@ public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
     @MainActor
     public func didTapLogin() {
         Task {
-            let connectionSuccessed = await authentificationService.login(authentId: viewState.email, 
+            let connectionSuccessed = await authentificationService.login(phone: viewState.phone,
                                                                           password: viewState.password)
             if connectionSuccessed {
                 updateAuthType(.authentified)

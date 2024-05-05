@@ -11,7 +11,7 @@ import Tools
 
 public protocol AuthentificationWebDataAccessProtocol {
     func createAccount(user: User, password: String) async throws -> UserTokenDTO
-    func login(authentId: String, password: String) async throws -> UserTokenDTO
+    func login(phone: String, password: String) async throws -> UserTokenDTO
 }
 
 public class AuthentificationWebDataAccess: AuthentificationWebDataAccessProtocol {
@@ -33,9 +33,9 @@ public class AuthentificationWebDataAccess: AuthentificationWebDataAccessProtoco
         return try await HTTPClient.shared.load(resource)
     }
 
-    public func login(authentId: String, password: String) async throws -> UserTokenDTO {
+    public func login(phone: String, password: String) async throws -> UserTokenDTO {
         let params = [
-            "email": authentId,
+            "phone": phone,
             "password": password
         ]
 

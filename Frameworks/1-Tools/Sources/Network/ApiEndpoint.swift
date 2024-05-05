@@ -12,7 +12,10 @@ public enum ApiEndpoint {
     case login
     case myConversations
     case createConversation
+    case reportMessage
     case chatConversation(id: String)
+    case leaveConversation(id: String)
+    case updateConversation(id: String)
 
     var path: String {
         switch self {
@@ -24,14 +27,20 @@ public enum ApiEndpoint {
             return "conversations/"
         case .createConversation:
             return "conversations/create"
+        case .reportMessage:
+            return "tickets/"
         case .chatConversation(let id):
             return "conversations/\(id)"
+        case .leaveConversation(let id):
+            return "conversations/\(id)/leave"
+        case .updateConversation(let id):
+            return "conversations/\(id)/modify"
         }
     }
 
-    static private let baseURL = UserDefaultsManager().baseURL ?? "http://localhost:3000/"
+    static private let baseURL = UserDefaultsManager().baseURL ?? "http://172.16.70.196:3000/"
 
-    static func endpointURL(for endpoint: ApiEndpoint) -> URL {
+    static public func endpointURL(for endpoint: ApiEndpoint) -> URL {
         guard let url = URL(string: baseURL + endpoint.path) else {
             fatalError("Invalid URL")
         }

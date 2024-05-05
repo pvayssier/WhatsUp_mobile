@@ -27,7 +27,7 @@ extension Image {
     /// Creates a SwiftUI `Image` asynchronously from a URL.
     /// - Parameter url: The URL to load the image from.
     /// - Returns: An `Image` view displaying the loaded image.
-    public static func loadAsync(from url: URL, defaultImage: Image) async -> Image {
+    public static func loadAsync(from url: URL, defaultImage: Image = Image(systemName: "person.2.fill")) async -> Image {
         if let uiImage = await UIImage.loadAsync(from: url) {
             return Image(uiImage: uiImage)
         } else {

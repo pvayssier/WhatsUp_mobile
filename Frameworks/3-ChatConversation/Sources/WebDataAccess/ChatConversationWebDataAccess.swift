@@ -11,6 +11,7 @@ import Tools
 
 protocol ChatConversationWebDataAccessProtocol {
     func fetchMessages(conversationId: String) async throws -> ChatConversationDTO
+    func reportMessage(messageId: String) async throws -> TicketDTO
 }
 
 final class ChatConversationWebDataAccess: ChatConversationWebDataAccessProtocol {
@@ -19,6 +20,18 @@ final class ChatConversationWebDataAccess: ChatConversationWebDataAccessProtocol
                                                      method: .get(.none),
                                                      modelType: ChatConversationDTO.self,
                                                      isAuthentified: true)
+
+        return try await HTTPClient.shared.load(resource)
+    }
+
+    func reportMessage(messageId: String) async throws -> TicketDTO {
+        let jsonEncoder = JSONEncoder()
+        let data = try jsonEncoder.encode(ReportMessageDTO(messageId: messageId))
+
+        let resource = Resource<TicketDTO>(endpoint: .reportMessage,
+                                           method: .post(data),
+                                           modelType: TicketDTO.self,
+                                           isAuthentified: true)
 
         return try await HTTPClient.shared.load(resource)
     }

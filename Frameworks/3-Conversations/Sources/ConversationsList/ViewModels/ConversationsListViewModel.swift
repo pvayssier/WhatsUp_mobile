@@ -34,7 +34,7 @@ final public class ConversationsListViewModel: ConversationsListViewModelProtoco
     public init(userNotLogged: @escaping () -> Void) {
         self.userNotLogged = userNotLogged
         self.userDefaults = Container.shared.userDefaultsManager()
-        socketManager = SocketManager(socketURL: URL(string: userDefaults.baseURL ?? "http://localhost:3000")!)
+        socketManager = SocketManager(socketURL: URL(string: userDefaults.baseURL ?? "http://172.16.70.196:3000/")!)
         socketClient = socketManager.defaultSocket
     }
 
@@ -89,7 +89,7 @@ final public class ConversationsListViewModel: ConversationsListViewModelProtoco
 
         socketClient.once(clientEvent: .connect) { [weak self] data, ack in
             self?.socketClient.emit("joinNotification", userId)
-            print( "socket.io connected", userId)
+            debugPrint( "socket.io connected", userId)
         }
 
         socketClient.on("new_message") { [weak self] data, ack in

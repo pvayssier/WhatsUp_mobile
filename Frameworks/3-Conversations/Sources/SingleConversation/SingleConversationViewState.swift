@@ -5,8 +5,8 @@
 //  Created by Paul VAYSSIER on 16/04/2024.
 //
 
-import Foundation
 import SwiftUI
+import Factory
 import Models
 
 public protocol SingleConversationViewStateProtocol: ObservableObject {
@@ -26,9 +26,16 @@ final public class SingleConversationViewState: SingleConversationViewStateProto
 
     public init(conversation: Conversation) {
         self.groupName = conversation.name
-        if let lastMessage = conversation.lastMessage,
-           let senderName = conversation.users.first(where: { $0.id == lastMessage.senderId })?.username {
-            self.formatLastMessage = "\(senderName): \(lastMessage.content)"
+        if let lastMessage = conversation.lastMessage, let user = Container.shared.userDefaultsManager().user {
+            if lastMessage.senderId == user.id {
+                let senderName = "You"
+                self.formatLastMessage = "\(senderName): \(lastMessage.content)"
+            } else {
+                let senderName = conversation.users.first(where: { $0.id == lastMessage.senderId })?.username
+                self.formatLastMessage = "\(senderName ?? "Undefined User"): \(lastMessage.content)"
+            }
+        } else {
+            self.formatLastMessage = "No message yet"
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short

@@ -14,7 +14,8 @@ struct MessageView: View {
                 message: Message,
                 picture: Image?,
                 isMyMessage: Bool,
-                position: PositionInGroup) {
+                position: PositionInGroup,
+                reportAction: @escaping (String) async -> Void) {
         self.message = message
         self.picture = picture
         self.isMyMessage = isMyMessage
@@ -25,6 +26,7 @@ struct MessageView: View {
 
         formatter.dateFormat = "HH:mm"
         self.formatDate = formatter.string(from: message.createdAt)
+        self.reportAction = reportAction
     }
 
     let senderName: String
@@ -33,6 +35,8 @@ struct MessageView: View {
     let position: PositionInGroup
     let formatDate: String
     private var picture: Image? = nil
+    private let reportAction: (String) async -> Void
+    @State private var presentReportAlert = false
 
     var body: some View {
         HStack(alignment: .bottom) {
@@ -75,15 +79,33 @@ struct MessageView: View {
                     }
                     DynamicTextView(fullText: message.content,
                                     endText: formatDate)
-
                 }
                 .padding(4)
                 .background(Color("receivedMessageColor", bundle: .main))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
+                .contextMenu {
+                    Button("Report", systemImage: "exclamationmark.bubble", role: .destructive) {
+                        presentReportAlert = true
+                    }
+                }
                 Spacer(minLength: 30)
             }
         }
         .padding(.bottom, position.padding)
         .padding(.horizontal, 10)
+        .alert("Do you want to report this message ?", isPresented: $presentReportAlert) {
+            Button("Cancel", role: .cancel) {
+                presentReportAlert = false
+            }
+            Button("Signal", role: .destructive) {
+                Task {
+                    await reportAction(message.id)
+                }
+            }
+        } message: {
+            Text("\(message.content) from \(senderName)")
+                .foregroundColor(.primary)
+        }
+
     }
 }

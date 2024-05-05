@@ -13,7 +13,7 @@ import Tools
 public protocol AuthentificationServiceProtocol {
     var user: User? { get }
     var isLoading: Bool { get }
-    func login(authentId: String, password: String) async -> Bool
+    func login(phone: String, password: String) async -> Bool
     func createAccount(user: User, password: String) async -> Bool
 }
 
@@ -53,9 +53,9 @@ public class AuthentificationService: AuthentificationServiceProtocol, Observabl
         return false
     }
 
-    public func login(authentId: String, password: String) async -> Bool {
+    public func login(phone: String, password: String) async -> Bool {
         isLoading = true
-        guard let request = try? await webDataAccess.login(authentId: authentId, password: password) else { return false }
+        guard let request = try? await webDataAccess.login(phone: phone, password: password) else { return false }
 
         self.user = User(id: request.user.id,
                          username: request.user.pseudo,

@@ -12,14 +12,14 @@ import Models
 import UITools
 
 public protocol ChatConversationViewModelProtocol: ObservableObject {
-    var pendingMessage: String { get set }
     var chatConversation: ChatConversation { get }
     var myUser: User { get }
     var onDisappear: () -> Void { get }
     var groupPicture: Image? { get }
     var usersPicture: [String: Image?] { get }
+    func didClickSend(content: String)
+    func reportMessage(messageId: String)
     func viewDidAppear()
-    func didClickSend()
 }
 
 final public class ChatConversationViewModel: ChatConversationViewModelProtocol {
@@ -29,12 +29,12 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
                                                                                 name: "",
                                                                                 messages: [],
                                                                                 users: [],
+                                                                                ownedBy: "",
                                                                                 pictureURL: nil)
     @Published public var groupPicture: Image?
     @Published public var usersPicture: [String: Image?] = [:]
 
     public let onDisappear: () -> Void
-    public var pendingMessage: String = ""
     public var myUser: User
 
     private let socketManager: SocketManager
@@ -48,7 +48,7 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
         self.conversationId = conversationId
         self.myUser = userDefault.user ?? User(id: "", username: "", email: "", phone: "")
 
-        self.socketManager = SocketManager(socketURL: URL(string: userDefault.baseURL ?? "http://localhost:3000")!)
+        self.socketManager = SocketManager(socketURL: URL(string: userDefault.baseURL ?? "http://172.16.70.196:3000/")!)
         self.socketClient = socketManager.defaultSocket
         self.onDisappear = didClickBack
     }
@@ -67,10 +67,8 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
     }
 
     @MainActor
-    public func didClickSend() {
-        guard !pendingMessage.isEmpty else { return }
-
-        let message = SendMessageDTO(content: pendingMessage,
+    public func didClickSend(content: String) {
+        let message = SendMessageDTO(content: content,
                                      senderId: myUser.id,
                                      conversationId: conversationId)
 
@@ -78,8 +76,12 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
            let messageString = String(data: messageData, encoding: .utf8) {
             socketClient.emit("send_message", messageString)
         }
+    }
 
-        pendingMessage = ""
+    public func reportMessage(messageId: String) {
+        Task {
+            await chatConversationService.reportMessage(messageId: messageId)
+        }
     }
 
     private func connectSocket() {

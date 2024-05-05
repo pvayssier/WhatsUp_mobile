@@ -14,6 +14,7 @@ public struct ChatConversationDTO: Codable {
                 users: [UserDTO],
                 createdAt: String,
                 updatedAt: String,
+                createdBy: String,
                 pictureURL: String?) {
         self.id = id
         self.name = name
@@ -21,6 +22,7 @@ public struct ChatConversationDTO: Codable {
         self.users = users
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.ownedBy = createdBy
         self.pictureURL = pictureURL
     }
 
@@ -30,6 +32,7 @@ public struct ChatConversationDTO: Codable {
     public let users: [UserDTO]
     public let createdAt: String
     public let updatedAt: String
+    public let ownedBy: String
     public let pictureURL: String?
 
     enum CodingKeys: String, CodingKey {
@@ -39,6 +42,7 @@ public struct ChatConversationDTO: Codable {
         case users
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+        case ownedBy = "owned_by"
         case pictureURL = "picture_url"
     }
 

@@ -32,12 +32,14 @@ public enum HTTPMethod {
     case get([URLQueryItem]?)
     case post(Data)
     case delete
+    case patch(Data?)
 
     var name: String {
         switch self {
         case .get: return "GET"
         case .post: return "POST"
         case .delete: return "DELETE"
+        case .patch: return "PATCH"
         }
     }
 }
@@ -105,6 +107,12 @@ public struct HTTPClient {
 
         case .delete:
             request.httpMethod = resource.method.name
+
+        case .patch(let data):
+            request.httpMethod = resource.method.name
+            if let data {
+                request.httpBody = data
+            }
         }
 
         let (data, response) = try await session.data(for: request)
