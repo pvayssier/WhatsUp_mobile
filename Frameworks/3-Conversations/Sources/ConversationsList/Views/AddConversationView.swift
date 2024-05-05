@@ -80,7 +80,7 @@ struct AddConversationView<ViewModel: AddConversationViewModelProtocol>: View {
                 .onChange(of: viewModel.selectedPhoto) { _ in
                     Task {
                         if let loaded = try? await viewModel.selectedPhoto?.loadTransferable(type: Data.self) {
-                            print("Loaded")
+                            debugPrint("Loaded")
                             if let image = UIImage(data: loaded) {
                                 viewModel.conversationPicture = image
                             }

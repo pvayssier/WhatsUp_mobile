@@ -17,6 +17,13 @@ extension Container {
         }
     }
 
+    var editConversationService: Factory<EditConversationServiceProtocol> {
+        self {
+            let webDataAccess: EditConversationWebDataAccessProtocol = EditConversationWebDataAccess()
+            return EditConversationService(dataAccess: webDataAccess)
+        }
+    }
+
     var userDefaults: Factory<UserDefaultsManager> {
         self {
             return UserDefaultsManager()

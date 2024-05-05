@@ -13,7 +13,7 @@ struct AdminModal<ViewModel: AuthViewModelProtocol>: View {
     @Environment(\.dismiss) private var dismiss
     @Injected(\.userDefaultsManager) private var userDefaultsManager
 
-    @State private var baseURL: String = Container.shared.userDefaultsManager().baseURL ?? "http://localhost:5000/"
+    @State private var baseURL: String = Container.shared.userDefaultsManager().baseURL ?? "http://172.16.70.196:3000/"
     @State private var type: AuthType = .login
 
     @ObservedObject private var viewModel: ViewModel

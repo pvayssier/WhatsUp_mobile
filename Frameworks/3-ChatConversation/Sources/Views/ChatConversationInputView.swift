@@ -8,31 +8,38 @@
 import SwiftUI
 
 struct MessageInputView: View {
-    @Binding var text: String
-    var action: () -> Void
+    @State var text: String = ""
+    var action: (String) -> Void
+
+    init(_ action: @escaping (String) -> Void) {
+        self.action = action
+    }
 
     var body: some View {
         HStack {
-            TextField("", text: $text)
+            TextField("", text: $text, axis: .vertical)
                 .padding(6)
                 .background(Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 24))
                 .overlay(RoundedRectangle(cornerRadius: 24).stroke(Color(.systemGray5), lineWidth: 1))
-                .padding(.horizontal, 10)
+                .padding(.leading, 10)
                 .padding(.vertical, 4)
+                .onSubmit {
+                    action(text)
+                }
             Button(action: {
-                action()
+                guard !text.isEmpty else { return }
+                action(text)
+                text = ""
             }, label: {
                 Image(systemName: "paperplane.circle.fill")
                     .resizable()
                     .frame(width: 30, height: 30)
                     .foregroundColor(Color(uiColor: UIColor.tintColor))
                     .background(.clear)
-                    .padding(.trailing, 10)
                     .rotationEffect(.degrees(45))
-                    .padding(.vertical, 6)
+                    .padding(10)
             })
         }
-        .padding(0)
     }
 }
