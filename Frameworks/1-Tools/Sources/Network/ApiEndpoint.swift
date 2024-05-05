@@ -13,6 +13,8 @@ public enum ApiEndpoint {
     case myConversations
     case createConversation
     case reportMessage
+    case deleteUser
+    case updateProfile(id: String)
     case chatConversation(id: String)
     case leaveConversation(id: String)
     case updateConversation(id: String)
@@ -23,6 +25,10 @@ public enum ApiEndpoint {
             return "users/register"
         case .login:
             return "users/login"
+        case .deleteUser:
+            return "users/"
+        case .updateProfile(let id):
+            return "users/\(id)"
         case .myConversations:
             return "conversations/"
         case .createConversation:

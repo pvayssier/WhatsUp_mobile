@@ -117,16 +117,16 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
 
     @MainActor
     private func setupPictures(with url: URL?) {
-        guard let url else { return }
-        Task {
-            self.groupPicture = await Image.loadAsync(from: url, defaultImage: Image(systemName: "person.2.fill"))
-        }
         self.chatConversation.users.forEach { user in
             if let pictureURL = user.pictureUrl {
                 Task {
                     self.usersPicture[user.id] = await Image.loadAsync(from: pictureURL, defaultImage: Image(systemName: "person.2.fill"))
                 }
             }
+        }
+        Task {
+            guard let url else { return }
+            self.groupPicture = await Image.loadAsync(from: url, defaultImage: Image(systemName: "person.2.fill"))
         }
     }
 }
