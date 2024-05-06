@@ -27,13 +27,13 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
 
-                    Text("Login to WhatsUp")
+                    Text(String(localized: "Login.title"))
                         .font(.largeTitle)
                         .foregroundStyle(.green)
                         .bold()
                         .padding(.bottom, 40)
 
-                    TextField("Phone number", text: $viewModel.viewState.phone)
+                    TextField(String(localized: "Login.phone"), text: $viewModel.viewState.phone)
                         .padding(.horizontal, 10)
                         .frame(height: 50)
                         .background(Color("textField_color", bundle: .module))
@@ -54,14 +54,14 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                             }
                         }
                     HStack {
-                        Text("Invalid phone number")
+                        Text(String(localized: "Login.phoneError"))
                             .font(.caption)
                             .foregroundColor(!viewModel.isValidPhoneNumber ? .red : .clear)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 4)
                         Spacer()
                     }
-                    SecureField("Password", text: $viewModel.viewState.password)
+                    SecureField(String(localized: "Login.password"), text: $viewModel.viewState.password)
                         .padding(.horizontal, 10)
                         .frame(height: 50)
                         .background(Color("textField_color", bundle: .module))
@@ -74,14 +74,7 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                         .padding(.top, 4)
                     if !viewModel.isValidPassword {
                         HStack {
-                            Text("""
-Password must contain at least:
-- 8 characters
-- 1 uppercase letter
-- 1 lowercase letter
-- 1 number
-- 1 special character
-""")
+                            Text(String(localized: "Login.passwordError"))
                             .font(.caption)
                             .foregroundColor(.red)
                             .padding(.horizontal, 16)
@@ -100,7 +93,7 @@ Password must contain at least:
                     Button(action: {
                         viewModel.didTapLogin()
                     }, label: {
-                        Text("Login")
+                        Text(String(localized: "Login.button"))
                             .frame(maxWidth: .infinity)
                     })
                     .padding(.horizontal, 10)
@@ -112,7 +105,7 @@ Password must contain at least:
                     .padding(.top, viewModel.authentificationError == nil ? 20 : 4)
 
                     HStack {
-                        Text("You don't have an account ?")
+                        Text(String(localized: "Login.dontHaveAccount"))
                             .multilineTextAlignment(.leading)
                             .font(.callout)
                             .padding(.bottom, 20)
@@ -120,7 +113,7 @@ Password must contain at least:
                             viewModel.viewState.password = ""
                             viewModel.updateAuthType(.register)
                         }) {
-                            Text("Sign up")
+                            Text(String(localized: "Login.signup"))
                                 .multilineTextAlignment(.leading)
                                 .font(.callout)
                                 .padding(.bottom, 20)

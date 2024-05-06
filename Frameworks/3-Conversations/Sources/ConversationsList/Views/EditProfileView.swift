@@ -53,7 +53,7 @@ public struct EditProfileView<ViewModel: EditProfileViewModelProtocol>: View {
                                 }
                                 VStack {
                                     Spacer()
-                                    Text("Change picture")
+                                    Text(String(localized: "EditProfile.changePicture"))
                                         .foregroundColor(.white)
                                         .fontWeight(.semibold)
                                         .padding(4)
@@ -70,14 +70,14 @@ public struct EditProfileView<ViewModel: EditProfileViewModelProtocol>: View {
                                      .padding(.top)
                     }
                     Form {
-                        Section("Username") {
-                            TextField("Username", text: $viewModel.username)
+                        Section(String(localized: "EditProfile.username")) {
+                            TextField(String(localized: "EditProfile.username"), text: $viewModel.username)
                         }
-                        Section("Email") {
-                            TextField("Email", text: $viewModel.email)
+                        Section(String(localized: "EditProfile.email")) {
+                            TextField(String(localized: "EditProfile.email"), text: $viewModel.email)
                         }
-                        Section("Phone") {
-                            TextField("Phone", text: $viewModel.phone)
+                        Section(String(localized: "EditProfile.phone")) {
+                            TextField(String(localized: "EditProfile.phone"), text: $viewModel.phone)
                         }
 
                         Section {
@@ -86,7 +86,7 @@ public struct EditProfileView<ViewModel: EditProfileViewModelProtocol>: View {
                                     Button(role: .destructive) {
                                         viewModel.didTapLogout()
                                     } label: {
-                                        Text("Logout")
+                                        Text(String(localized: "EditProfile.logout"))
                                             .fontWeight(.bold)
                                             .font(.system(size: 15))
                                     }
@@ -98,7 +98,7 @@ public struct EditProfileView<ViewModel: EditProfileViewModelProtocol>: View {
                                     Button(role: .destructive) {
                                         showDeleteAccountAlert = true
                                     } label: {
-                                        Text("Delete your account")
+                                        Text(String(localized: "EditProfile.delete"))
                                             .fontWeight(.bold)
                                             .font(.system(size: 15))
                                     }
@@ -120,35 +120,32 @@ public struct EditProfileView<ViewModel: EditProfileViewModelProtocol>: View {
                             }
                         }
                     }
-                    .navigationTitle("Modify your profile")
+                    .navigationTitle(String(localized: "EditProfile.title"))
                     .background(Color(.systemGroupedBackground))
                     .toolbar {
                         if viewModel.isModified {
                             ToolbarItem(placement: .cancellationAction) {
-                                Button("Cancel") {
+                                Button(String(localized: "EditProfile.cancel")) {
                                     dismiss()
                                 }
                             }
                             ToolbarItem(placement: .confirmationAction) {
-                                Button("Save") {
+                                Button(String(localized: "EditProfile.save")) {
                                     viewModel.didTapSave()
                                 }
                             }
                         } else {
                             ToolbarItem(placement: .confirmationAction) {
-                                Button("Done") {
+                                Button(String(localized: "EditProfile.done")) {
                                     dismiss()
                                 }
                             }
                         }
                     }
                     .alert(isPresented: $showDeleteAccountAlert) {
-                        Alert(title: Text("Delete your account"),
-                              message: Text("""
-Are you sure you want to delete your account?
-This action is irreversible.
-"""),
-                              primaryButton: .destructive(Text("Delete"), action: {
+                        Alert(title: Text(String(localized: "EditProfile.DeleteAccount.AreYouSure.title")),
+                              message: Text(String(localized: "EditProfile.DeleteAccount.AreYouSure.message")),
+                              primaryButton: .destructive(Text(String(localized: "EditProfile.DeleteAccount.AreYouSure.delete")), action: {
                                 viewModel.didTapDelete()
                               }),
                               secondaryButton: .cancel())

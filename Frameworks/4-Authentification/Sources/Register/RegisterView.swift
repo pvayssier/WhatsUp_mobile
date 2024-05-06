@@ -28,13 +28,13 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     .scaledToFit()
                     .frame(width: 100, height: 100)
 
-                Text("Welcome to Whats'Up")
+                Text(String(localized: "Register.title"))
                     .font(.largeTitle)
                     .foregroundStyle(.green)
                     .bold()
                     .padding(.bottom, 40)
 
-                TextField("Username", text: $viewModel.viewState.username)
+                TextField(String(localized: "Register.username"), text: $viewModel.viewState.username)
                     .padding(.horizontal, 10)
                     .frame(height: 50)
                     .background(Color("textField_color", bundle: .module))
@@ -48,7 +48,7 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     .textInputAutocapitalization(.never)
 
 
-                TextField("Email", text: $viewModel.viewState.email)
+                TextField(String(localized: "Register.email"), text: $viewModel.viewState.email)
                     .padding(.horizontal, 10)
                     .frame(height: 50)
                     .background(Color("textField_color", bundle: .module))
@@ -63,7 +63,7 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     .textInputAutocapitalization(.never)
                 if !viewModel.isValidEmail {
                     HStack {
-                        Text("Invalid email")
+                        Text(String(localized: "Register.emailError"))
                             .font(.caption)
                             .foregroundColor(!viewModel.isValidEmail ? .red : .clear)
                             .padding(.horizontal, 16)
@@ -72,7 +72,7 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     }
                 }
 
-                TextField("Phone number", text: $viewModel.viewState.phone)
+                TextField(String(localized: "Register.phone"), text: $viewModel.viewState.phone)
                     .padding(.horizontal, 10)
                     .frame(height: 50)
                     .background(Color("textField_color", bundle: .module))
@@ -92,7 +92,7 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     }
                 if !viewModel.isValidPhoneNumber {
                     HStack {
-                        Text("Invalid phone number")
+                        Text(String(localized: "Register.phoneError"))
                             .font(.caption)
                             .foregroundColor(!viewModel.isValidPhoneNumber ? .red : .clear)
                             .padding(.horizontal, 16)
@@ -101,7 +101,7 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     }
                 }
 
-                SecureField("Password", text: $viewModel.viewState.password)
+                SecureField(String(localized: "Register.password"), text: $viewModel.viewState.password)
                     .padding(.horizontal, 10)
                     .frame(height: 50)
                     .background(Color("textField_color", bundle: .module))
@@ -114,14 +114,7 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     .padding(.top, 4)
                 if !viewModel.isValidPassword {
                     HStack {
-                        Text("""
-Password must contain at least:
-- 8 characters
-- 1 uppercase letter
-- 1 lowercase letter
-- 1 number
-- 1 special character
-""")
+                        Text(String(localized: "Register.passwordError"))
                         .font(.caption)
                         .foregroundColor(.red)
                         .padding(.horizontal, 16)
@@ -143,7 +136,7 @@ Password must contain at least:
                 Button(action: {
                     viewModel.didTapRegister()
                 }, label: {
-                    Text("Register")
+                    Text(String(localized: "Register.button"))
                         .frame(maxWidth: .infinity)
                 })
                 .padding(.horizontal, 10)
@@ -155,7 +148,7 @@ Password must contain at least:
                 .padding(.top, viewModel.authentificationError == nil ? 20 : 0)
 
                 HStack {
-                    Text("You have an account ?")
+                    Text(String(localized: "Register.haveAccount"))
                         .multilineTextAlignment(.leading)
                         .font(.callout)
                         .padding(.bottom, 20)
@@ -163,7 +156,7 @@ Password must contain at least:
                         viewModel.viewState.password = ""
                         viewModel.updateAuthType(.login)
                     }) {
-                        Text("Sign in")
+                        Text(String(localized: "Register.signin"))
                             .multilineTextAlignment(.leading)
                             .font(.callout)
                             .padding(.bottom, 20)

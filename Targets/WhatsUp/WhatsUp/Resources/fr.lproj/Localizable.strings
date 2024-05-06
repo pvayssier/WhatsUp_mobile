@@ -1,0 +1,111 @@
+/* 
+  Localizable.strings
+  WhatsUp
+
+  Created by Paul VAYSSIER on 06/05/2024.
+  
+*/
+
+// ConversationList
+"ConversationList.title" = "Discussion";
+"ConversationList.today" = "Aujourd'hui";
+
+// ChatConversation
+"ChatConversation.AreYouSure.Report.message" = "Voulez-vous signaler ce message ?";
+"ChatConversation.AreYouSure.Report.button" = "Signaler";
+"ChatConversation.AreYouSure.Report.cancel" = "Annuler";
+"ChatConversation.AreYouSure.Report.signal" = "Signaler";
+"ChatConversation.undefinedUser" = "utilisateur non défini";
+"ChatConversation.editConversation" = "Appuyez ici pour avoir plus d'information";
+"ChatConversation.today" = "Aujourd'hui";
+
+// EditConversation
+"EditConversation.changePicture" = "Changer l'image";
+"EditConversation.conversationName" = "Nom de la conversation";
+"EditConversation.groupMembers" = "Membres du groupe";
+"EditConversation.member" = "Membre";
+"EditConversation.addNewMember" = "Ajouter un nouveau membre";
+"EditConversation.leaveConversation" = "Quitter la conversation";
+"EditConversation.LeaveConversation.AreYouSure.title" = "Êtes-vous sûr ?";
+"EditConversation.LeaveConversation.AreYouSure.Message.prefix" = "Vous ne pourrez plus accéder à";
+"EditConversation.LeaveConversation.AreYouSure.Message.sufix" = " la conversation.";
+"EditConversation.LeaveConversation.AreYouSure.cancel" = "Annuler";
+"EditConversation.DeleteConversation.button" = "Supprimer la conversation";
+"EditConversation.DeleteConversation.AreYouSure.title" = "Êtes-vous sûr ?";
+"EditConversation.DeleteConversation.AreYouSure.Message.prefix" = "Vous perdrez tous les messages dans";
+"EditConversation.DeleteConversation.AreYouSure.Message.sufix" = " la conversation.";
+"EditConversation.LeaveConversation.AreYouSure.cancel" = "Annuler";
+"EditConversation.LeaveConversation.AreYouSure.leave" = "Quitter";
+"EditConversation.cancel" = "Annuler";
+"EditConversation.save" = "Enregistrer";
+"EditConversation.done" = "Terminé";
+
+// AddConversation
+"AddConversation.conversationName" = "Nom de la conversation (Optionnel)";
+"AddConversation.groupMembers" = "Membres du groupe";
+"AddConversation.addMember" = "Ajouter un membre";
+"AddConversation.title" = "Ajouter une conversation";
+"AddConversation.cancel" = "Annuler";
+"AddConversation.create" = "Créer";
+
+// ConversationList
+"AddConversation.title" = "Conversations";
+
+// EditProfile
+"EditProfile.changePicture" = "Changer l'image";
+"EditProfile.username" = "Nom d'utilisateur";
+"EditProfile.email" = "Email";
+"EditProfile.phone" = "Téléphone";
+"EditProfile.logout" = "Se déconnecter";
+"EditProfile.delete" = "Supprimer votre compte";
+"EditProfile.title" = "Modifier votre profil";
+"EditProfile.cancel" = "Annuler";
+"EditProfile.save" = "Enregistrer";
+"EditProfile.done" = "Terminé";
+"EditProfile.DeleteAccount.AreYouSure.title" = "Supprimer votre compte";
+"EditProfile.DeleteAccount.AreYouSure.message" = "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.";
+"EditProfile.DeleteAccount.AreYouSure.delete" = "Supprimer";
+
+// SingleConversation
+"SingleConversation.undefinedUser" = "utilisateur non défini";
+"SingleConversation.noMessage" = "Pas de message pour le moment";
+"SingleConversation.you" = "Vous";
+
+// Login
+"Login.title" = "Se connecter à WhatsUp";
+"Login.phone" = "Numéro de téléphone";
+"Login.password" = "Mot de passe";
+"Login.button" = "Se connecter";
+"Login.dontHaveAccount" = "Vous n'avez pas de compte ?";
+"Login.signup" = "S'inscrire";
+"Login.phoneError" = "Numéro de téléphone invalide";
+"Login.credentialsError" = "Numéro de téléphone ou mot de passe incorrect";
+"Login.passwordError" = "
+Le mot de passe doit contenir au moins :
+- 8 caractères
+- 1 majuscule
+- 1 minuscule
+- 1 chiffre
+- 1 caractère spécial
+";
+
+// Register
+"Register.title" = "Bienvenue sur WhatsUp";
+"Register.username" = "Nom d'utilisateur";
+"Register.email" = "Email";
+"Register.phone" = "Numéro de téléphone";
+"Register.password" = "Mot de passe";
+"Register.button" = "S'inscrire";
+"Register.haveAccount" = "Vous avez déjà un compte ?";
+"Register.signin" = "Se connecter";
+"Register.phoneError" = "Numéro de téléphone invalide";
+"Register.emailError" = "Email invalide";
+"Register.credentialsError" = "Numéro de téléphone déjà utilisé";
+"Register.passwordError" = "
+Le mot de passe doit contenir au moins :
+- 8 caractères
+- 1 majuscule
+- 1 minuscule
+- 1 chiffre
+- 1 caractère spécial
+";

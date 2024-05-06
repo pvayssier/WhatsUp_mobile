@@ -1,0 +1,112 @@
+/* 
+  Localizable.strings
+  WhatsUp
+
+  Created by Paul VAYSSIER on 06/05/2024.
+  
+*/
+
+// ConversationList
+"ConversationList.title" = "Conversation";
+"ConversationList.today" = "Today";
+
+// ChatConversation
+"ChatConversation.AreYouSure.Report.message" = "Do you want to report this message ?";
+"ChatConversation.AreYouSure.Report.button" = "Report";
+"ChatConversation.AreYouSure.Report.cancel" = "Cancel";
+"ChatConversation.AreYouSure.Report.signal" = "Signal";
+"ChatConversation.undefinedUser" = "undefined user";
+"ChatConversation.editConversation" = "Tap here for conversation info";
+"ChatConversation.today" = "Today";
+
+// EditConversation
+"EditConversation.changePicture" = "Change picture";
+"EditConversation.conversationName" = "Conversation name";
+"EditConversation.groupMembers" = "Group members";
+"EditConversation.member" = "Member";
+"EditConversation.addNewMember" = "Add new member phone";
+"EditConversation.leaveConversation" = "Leave conversation";
+"EditConversation.LeaveConversation.AreYouSure.title" = "Are you sure ?";
+"EditConversation.LeaveConversation.AreYouSure.Message.prefix" = "You will no longer able to access";
+"EditConversation.LeaveConversation.AreYouSure.Message.sufix" = " conversation.";
+"EditConversation.LeaveConversation.AreYouSure.cancel" = "Cancel";
+"EditConversation.DeleteConversation.button" = "Delete conversation";
+"EditConversation.DeleteConversation.AreYouSure.title" = "Are you sure ?";
+"EditConversation.DeleteConversation.AreYouSure.Message.prefix" = "You will loose all messages in";
+"EditConversation.DeleteConversation.AreYouSure.Message.sufix" = " conversation.";
+"EditConversation.LeaveConversation.AreYouSure.cancel" = "Cancel";
+"EditConversation.LeaveConversation.AreYouSure.leave" = "Leave";
+"EditConversation.cancel" = "Cancel";
+"EditConversation.save" = "Save";
+"EditConversation.done" = "Done";
+
+// AddConversation
+"AddConversation.conversationName" = "Conversation name (Optionnal)";
+"AddConversation.groupMembers" = "Group members";
+"AddConversation.addMember" = "Add member";
+"AddConversation.title" = "Add a conversation";
+"AddConversation.cancel" = "Cancel";
+"AddConversation.create" = "Create";
+
+// ConversationList
+"AddConversation.title" = "Conversations";
+
+// EditProfile
+"EditProfile.changePicture" = "Change picture";
+"EditProfile.username" = "Username";
+"EditProfile.email" = "Email";
+"EditProfile.phone" = "Phone";
+"EditProfile.logout" = "Logout";
+"EditProfile.delete" = "Delete your account";
+"EditProfile.title" = "Modify your profile";
+"EditProfile.cancel" = "Cancel";
+"EditProfile.save" = "Save";
+"EditProfile.done" = "Done";
+"EditProfile.DeleteAccount.AreYouSure.title" = "Delete your account";
+"EditProfile.DeleteAccount.AreYouSure.message" = "Are you sure you want to delete your account?
+This action is irreversible.";
+"EditProfile.DeleteAccount.AreYouSure.delete" = "Delete";
+
+// SingleConversation
+"SingleConversation.undefinedUser" = "undefined user";
+"SingleConversation.noMessage" = "No message yet";
+"SingleConversation.you" = "You";
+
+// Login
+"Login.title" = "Login To WhatsUp";
+"Login.phone" = "Phone number";
+"Login.password" = "Password";
+"Login.button" = "Login";
+"Login.dontHaveAccount" = "You don't have an account ?";
+"Login.signup" = "Sign up";
+"Login.phoneError" = "Invalid phone number";
+"Login.credentialsError" = "Phone or password is incorrect";
+"Login.passwordError" = "
+Password must contain at least:
+- 8 characters
+- 1 uppercase letter
+- 1 lowercase letter
+- 1 number
+- 1 special character
+";
+
+// Register
+"Register.title" = "Welcome to WhatsUp";
+"Register.username" = "Username";
+"Register.email" = "Email";
+"Register.phone" = "Phone number";
+"Register.password" = "Password";
+"Register.button" = "Register";
+"Register.haveAccount" = "You have an account ?";
+"Register.signin" = "Sign in";
+"Register.phoneError" = "Invalid phone number";
+"Register.emailError" = "Invalid Email";
+"Register.credentialsError" = "Phone already used";
+"Register.passwordError" = "
+Password must contain at least:
+- 8 characters
+- 1 uppercase letter
+- 1 lowercase letter
+- 1 number
+- 1 special character
+";

@@ -17,7 +17,7 @@ struct DaySeparatorView: View {
         }
 
         if Calendar.current.isDate(messageDate, inSameDayAs: Date()) {
-            self.formatDate = "Aujourd'hui"
+            self.formatDate = String(localized: "ChatConversation.today")
         } else {
             let formatter = DateFormatter()
             formatter.locale = Calendar.current.locale
