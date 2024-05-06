@@ -40,7 +40,13 @@ final public class SingleConversationViewState: SingleConversationViewStateProto
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .none
-        self.formatDate = dateFormatter.string(from: conversation.updateAt)
+        if Calendar.current.isDateInToday(conversation.updateAt) {
+            dateFormatter.timeStyle = .short
+            dateFormatter.dateStyle = .none
+            self.formatDate = dateFormatter.string(from: conversation.updateAt)
+        } else {
+            self.formatDate = dateFormatter.string(from: conversation.updateAt)
+        }
 
         Task {
             await setupPicture(with: conversation.pictureURL)
