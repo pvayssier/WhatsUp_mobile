@@ -124,7 +124,7 @@ public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
             } catch {
                 debugPrint(error)
                 if let error = error as? NetworkError, error == NetworkError.badRequest {
-                    authentificationError = "Phone already used"
+                    authentificationError = String(localized: "Register.credentialsError")
                 } else {
                     authentificationError = error.localizedDescription
                 }
@@ -149,7 +149,7 @@ public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
                 }
             } catch {
                 if let error = error as? NetworkError, error == NetworkError.unauthorized {
-                    authentificationError = "Phone or password is incorrect"
+                    authentificationError = String(localized: "Login.credentialsError")
                 } else {
                     authentificationError = error.localizedDescription
                 }

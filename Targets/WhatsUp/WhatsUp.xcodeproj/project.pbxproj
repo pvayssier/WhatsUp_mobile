@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF0DCFF82BE8C63C00E81016 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF0DCFF62BE8C63C00E81016 /* Localizable.strings */; };
+		FF0DCFFB2BE8D7D000E81016 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF0DCFF92BE8D7CF00E81016 /* Localizable.strings */; };
 		FF6E06F02BC43D30007DC4B1 /* WhatsUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6E06EF2BC43D30007DC4B1 /* WhatsUpApp.swift */; };
 		FF6E06F42BC43D31007DC4B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */; };
 		FF6E06F72BC43D31007DC4B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F62BC43D31007DC4B1 /* Preview Assets.xcassets */; };
@@ -29,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FF0DCFF72BE8C63C00E81016 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		FF0DCFFA2BE8D7CF00E81016 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localizable.strings; sourceTree = "<group>"; };
 		FF6E06EF2BC43D30007DC4B1 /* WhatsUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsUpApp.swift; sourceTree = "<group>"; };
 		FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF6E06F62BC43D31007DC4B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -49,6 +53,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF0DCFF32BE8C5E300E81016 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FF0DCFF52BE8C62200E81016 /* en.lproj */,
+				FF0DCFF42BE8C61200E81016 /* fr.lproj */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FF0DCFF42BE8C61200E81016 /* fr.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				FF0DCFF92BE8D7CF00E81016 /* Localizable.strings */,
+			);
+			path = fr.lproj;
+			sourceTree = "<group>";
+		};
+		FF0DCFF52BE8C62200E81016 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				FF0DCFF62BE8C63C00E81016 /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
 		FF6E06E32BC43D30007DC4B1 = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +90,7 @@
 		FF6E06EE2BC43D30007DC4B1 /* WhatsUp */ = {
 			isa = PBXGroup;
 			children = (
+				FF0DCFF32BE8C5E300E81016 /* Resources */,
 				FF6E06EF2BC43D30007DC4B1 /* WhatsUpApp.swift */,
 				FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */,
 				FF6E06F52BC43D31007DC4B1 /* Preview Content */,
@@ -131,6 +161,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = FF6E06E32BC43D30007DC4B1;
 			packageReferences = (
@@ -153,6 +184,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF6E06F72BC43D31007DC4B1 /* Preview Assets.xcassets in Resources */,
+				FF0DCFFB2BE8D7D000E81016 /* Localizable.strings in Resources */,
+				FF0DCFF82BE8C63C00E81016 /* Localizable.strings in Resources */,
 				FF6E06F42BC43D31007DC4B1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +202,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FF0DCFF62BE8C63C00E81016 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FF0DCFF72BE8C63C00E81016 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		FF0DCFF92BE8D7CF00E81016 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FF0DCFFA2BE8D7CF00E81016 /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FF6E06F82BC43D31007DC4B1 /* Debug */ = {

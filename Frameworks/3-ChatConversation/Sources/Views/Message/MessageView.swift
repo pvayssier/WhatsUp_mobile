@@ -84,7 +84,7 @@ struct MessageView: View {
                 .background(Color("ReceivedMessageColor", bundle: .main))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .contextMenu {
-                    Button("Report", systemImage: "exclamationmark.bubble", role: .destructive) {
+                    Button(String(localized: "ChatConversation.AreYouSure.Report.button"), systemImage: "exclamationmark.bubble", role: .destructive) {
                         presentReportAlert = true
                     }
                 }
@@ -93,17 +93,17 @@ struct MessageView: View {
         }
         .padding(.bottom, position.padding)
         .padding(.horizontal, 10)
-        .alert("Do you want to report this message ?", isPresented: $presentReportAlert) {
-            Button("Cancel", role: .cancel) {
+        .alert(String(localized: "ChatConversation.AreYouSure.Report.message"), isPresented: $presentReportAlert) {
+            Button(String(localized: "ChatConversation.AreYouSure.Report.cancel"), role: .cancel) {
                 presentReportAlert = false
             }
-            Button("Signal", role: .destructive) {
+            Button(String(localized: "ChatConversation.AreYouSure.Report.signal"), role: .destructive) {
                 Task {
                     await reportAction(message.id)
                 }
             }
         } message: {
-            Text("\(message.content) from \(senderName)")
+            Text("\(message.content)")
                 .foregroundColor(.primary)
         }
 

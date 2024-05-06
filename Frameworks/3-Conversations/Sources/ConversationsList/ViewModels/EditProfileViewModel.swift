@@ -101,7 +101,7 @@ final class EditProfileViewModel: EditProfileViewModelProtocol {
 
     func didTapLogout() {
         Container.shared.userDefaultsManager().user = nil
-        if KeychainHelper.deleteJWT() {
+        if KeychainHelper.deleteJWT() {
             goToLogin()
         }
     }

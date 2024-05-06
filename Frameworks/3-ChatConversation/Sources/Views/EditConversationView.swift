@@ -56,7 +56,7 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                                 }
                                 VStack {
                                     Spacer()
-                                    Text("Change picture")
+                                    Text(String(localized: "EditConversation.changePicture"))
                                         .foregroundColor(.white)
                                         .fontWeight(.semibold)
                                         .padding(4)
@@ -73,14 +73,14 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                                      .padding(.top)
                     }
                     Form {
-                        Section("Conversation name") {
-                            TextField("Conversation name", text: $viewModel.conversationName)
+                        Section(String(localized: "EditConversation.conversationName")) {
+                            TextField(String(localized: "EditConversation.conversationName"), text: $viewModel.conversationName)
                         }
                     }
                     .frame(height: 80)
                     .scrollDisabled(true)
                     List {
-                        Section(header: Text("Group members")) {
+                        Section(header: Text(String(localized: "EditConversation.groupMembers"))) {
                             ForEach(viewModel.conversationUserNames.indices, id: \.self) { index in
                                 HStack {
                                     Text(viewModel.conversationUserNames[index])
@@ -99,7 +99,7 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                             ForEach(viewModel.newUserPhoneNumbers.indices, id: \.self) { index in
                                 HStack {
                                     if !viewModel.newUserPhoneNumbers.isEmpty {
-                                        TextField("Member \(viewModel.conversationUserNames.count + index + 1)", text: $viewModel.newUserPhoneNumbers[index])
+                                        TextField("\(String(localized: "EditConversation.member")) \(viewModel.conversationUserNames.count + index + 1)", text: $viewModel.newUserPhoneNumbers[index])
                                             .keyboardType(.phonePad)
                                         Button(action: {
                                             viewModel.newUserPhoneNumbers.remove(at: index)
@@ -116,7 +116,7 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                             }) {
                                 HStack {
                                     Image(systemName: "plus.circle.fill")
-                                    Text("Add new member phone")
+                                    Text(String(localized: "EditConversation.addNewMember"))
                                 }
                                 .foregroundStyle(.blue)
                             }
@@ -127,17 +127,17 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                             } label: {
                                 HStack {
                                     Spacer()
-                                    Text("Leave conversation")
+                                    Text(String(localized: "EditConversation.leaveConversation"))
                                         .foregroundStyle(.red)
                                     Spacer()
                                 }
                             }
                         }
-                        .alert("Are you sure ?", isPresented: $showLeaveAlert) {
-                            Button("Cancel", role: .cancel) {
+                        .alert(String(localized: "EditConversation.LeaveConversation.AreYouSure.title"), isPresented: $showLeaveAlert) {
+                            Button(String(localized: "EditConversation.LeaveConversation.AreYouSure.cancel"), role: .cancel) {
                                 showLeaveAlert = false
                             }
-                            Button("Leave", role: .destructive) {
+                            Button(String(localized: "EditConversation.LeaveConversation.AreYouSure.leave"), role: .destructive) {
                                 Task {
                                     let isSucceded = await viewModel.didTapLeave()
                                     if isSucceded {
@@ -147,7 +147,7 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                                 }
                             }
                         } message: {
-                            Text("You will no longer be able to access \"\(viewModel.conversationName)\" conversation.")
+                            Text("\(String(localized: "EditConversation.LeaveConversation.AreYouSure.Message.prefix")) \"\(viewModel.conversationName)\"\(String(localized: "EditConversation.LeaveConversation.AreYouSure.Message.sufix"))")
                         }
                         if viewModel.isAdmin {
                             Section {
@@ -158,17 +158,17 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                                 } label: {
                                     HStack {
                                         Spacer()
-                                        Text("Delete conversation")
+                                        Text(String(localized: "EditConversation.DeleteConversation.button"))
                                             .foregroundStyle(.red)
                                         Spacer()
                                     }
                                 }
                             }
-                            .alert("Are you sure ?", isPresented: $showDeleteAlert) {
-                                Button("Cancel", role: .cancel) {
+                            .alert(String(localized: "EditConversation.DeleteConversation.AreYouSure.title"), isPresented: $showDeleteAlert) {
+                                Button(String(localized: "EditConversation.DeleteConversation.AreYouSure.cancel"), role: .cancel) {
                                     showDeleteAlert = false
                                 }
-                                Button("Delete", role: .destructive) {
+                                Button(String(localized: "EditConversation.DeleteConversation.AreYouSure.delete"), role: .destructive) {
                                     Task {
                                         let isSucceded = await viewModel.didTapDelete()
                                         if isSucceded {
@@ -178,7 +178,7 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                                     }
                                 }
                             } message: {
-                                Text("You will loose all messages in \"\(viewModel.conversationName)\" conversation.")
+                                Text("\(String(localized: "EditConversation.DeleteConversation.AreYouSure.Message.prefix")) \"\(viewModel.conversationName)\"\(String(localized: "EditConversation.DeleteConversation.AreYouSure.Message.sufix"))")
                             }
                         }
                     }
@@ -198,18 +198,18 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                     .toolbar {
                         if viewModel.isModified {
                             ToolbarItem(placement: .cancellationAction) {
-                                Button("Cancel") {
+                                Button(String(localized: "EditConversation.cancel")) {
                                     dismiss()
                                 }
                             }
                             ToolbarItem(placement: .confirmationAction) {
-                                Button("Save") {
+                                Button(String(localized: "EditConversation.save")) {
                                     viewModel.didTapSave()
                                 }
                             }
                         } else {
                             ToolbarItem(placement: .confirmationAction) {
-                                Button("Done") {
+                                Button(String(localized: "EditConversation.done")) {
                                     dismiss()
                                 }
                             }

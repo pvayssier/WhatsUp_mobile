@@ -55,7 +55,7 @@ struct ChatToolbarContent: View {
                     VStack(alignment: .leading, spacing: 0.5) {
                         Text(groupName)
                             .font(.headline)
-                        Text("tap here for conversation info")
+                        Text(String(localized: "ChatConversation.editConversation"))
                             .font(.footnote)
                             .fontWeight(.light)
                             .foregroundColor(.secondary)

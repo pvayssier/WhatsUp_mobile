@@ -28,14 +28,14 @@ final public class SingleConversationViewState: SingleConversationViewStateProto
         self.groupName = conversation.name
         if let lastMessage = conversation.lastMessage, let user = Container.shared.userDefaultsManager().user {
             if lastMessage.senderId == user.id {
-                let senderName = "You"
+                let senderName = String(localized: "SingleConversation.you")
                 self.formatLastMessage = "\(senderName): \(lastMessage.content)"
             } else {
                 let senderName = conversation.users.first(where: { $0.id == lastMessage.senderId })?.username
-                self.formatLastMessage = "\(senderName ?? "Undefined User"): \(lastMessage.content)"
+                self.formatLastMessage = "\(senderName ?? String(localized: "SingleConversation.undefinedUser")): \(lastMessage.content)"
             }
         } else {
-            self.formatLastMessage = "No message yet"
+            self.formatLastMessage = String(localized: "SingleConversation.noMessage")
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
@@ -43,10 +43,8 @@ final public class SingleConversationViewState: SingleConversationViewStateProto
         if Calendar.current.isDateInToday(conversation.updateAt) {
             dateFormatter.timeStyle = .short
             dateFormatter.dateStyle = .none
-            self.formatDate = dateFormatter.string(from: conversation.updateAt)
-        } else {
-            self.formatDate = dateFormatter.string(from: conversation.updateAt)
         }
+        self.formatDate = dateFormatter.string(from: conversation.updateAt)
 
         Task {
             await setupPicture(with: conversation.pictureURL)

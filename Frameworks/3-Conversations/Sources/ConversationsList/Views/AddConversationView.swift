@@ -45,12 +45,12 @@ struct AddConversationView<ViewModel: AddConversationViewModelProtocol>: View {
                                  .padding(.top)
                 }
                 Form {
-                    TextField("Conversation name (Optionnal)", text: $viewModel.conversationName)
+                    TextField(String(localized: "AddConversation.conversationName"), text: $viewModel.conversationName)
                 }
                 .frame(height: 80)
                 .scrollDisabled(true)
                 List {
-                    Section(header: Text("Group members")) {
+                    Section(header: Text(String(localized: "AddConversation.groupMembers"))) {
                         ForEach(viewModel.conversationMembers.indices, id: \.self) { index in
                             HStack {
                                 TextField("Member \(index + 1)", text: $viewModel.conversationMembers[index])
@@ -70,7 +70,7 @@ struct AddConversationView<ViewModel: AddConversationViewModelProtocol>: View {
                         }) {
                             HStack {
                                 Image(systemName: "plus.circle.fill")
-                                Text("Add member")
+                                Text(String(localized: "AddConversation.addMember"))
                             }
                             .foregroundStyle(.blue)
                         }
@@ -90,16 +90,16 @@ struct AddConversationView<ViewModel: AddConversationViewModelProtocol>: View {
                     }
                 }
             }
-            .navigationTitle("Add a conversation")
+            .navigationTitle(String(localized: "AddConversation.title"))
             .background(Color(.systemGroupedBackground))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button(String(localized: "AddConversation.cancel")) {
                         dismiss()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Create") {
+                    Button(String(localized: "AddConversation.create")) {
                         viewModel.didClickCreate()
                         dismiss()
                     }

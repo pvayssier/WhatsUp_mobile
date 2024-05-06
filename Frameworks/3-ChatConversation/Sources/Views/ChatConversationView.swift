@@ -51,7 +51,7 @@ public struct ChatConversationView<ViewModel: ChatConversationViewModelProtocol>
 
                             DaySeparatorView(messageDate: message.createdAt,
                                              prevMessageDate: previousMessage(index: viewModel.chatConversation.messages.firstIndex(of: message))?.createdAt)
-                            MessageView(senderName: viewModel.chatConversation.users.first(where: { $0.id == message.senderId })?.username ?? "undefined user",
+                            MessageView(senderName: viewModel.chatConversation.users.first(where: { $0.id == message.senderId })?.username ?? String(localized: "ChatConversation.undefinedUser"),
                                         message: message,
                                         picture: viewModel.usersPicture[message.senderId].flatMap { $0 },
                                         isMyMessage: message.senderId == viewModel.myUser.id,
