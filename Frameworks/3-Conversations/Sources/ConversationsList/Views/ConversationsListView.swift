@@ -23,57 +23,70 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
 
     public var body: some View {
         NavigationView {
-            ScrollView {
-                ForEach(viewModel.conversations) { conversation in
-                    NavigationLink(destination:
-                                    ChatConversationView(viewModel: ChatConversationViewModel(conversationId: conversation.id,
-                                                                                              didClickBack: viewModel.didQuitSubview))
-                                        .onAppear {
-                                            viewModel.didSelectConversation()
-                                        }
-                    ) {
-                        VStack {
-                            SingleConversationView(viewModel: SingleConversationViewState(conversation: conversation))
-                            if conversation != viewModel.conversations.last {
-                                Divider()
-                                    .padding(.leading, 70)
-                            }
-                        }
+            VStack {
+                if viewModel.conversations.isEmpty {
+                    VStack {
+                        Spacer()
+                        Text("No conversations yet")
+                            .font(.title)
+                            .foregroundColor(.secondary)
+                        Spacer()
                     }
-                    .buttonStyle(.plain)
-                }
-                .navigationTitle("Conversations")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            presentAddConversationView.toggle()
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-
-                    }
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button {
-                            presentEditProfileView = true
-                        } label: {
-                            Group {
-                                if let picture = viewModel.userPicture {
-                                    picture
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 30, height: 30)
-                                        .clipShape(Circle())
-                                } else {
-                                    Image(systemName: "person.circle")
+                } else {
+                    ScrollView {
+                        ForEach(viewModel.conversations) { conversation in
+                            NavigationLink(destination:
+                                            ChatConversationView(viewModel: ChatConversationViewModel(conversationId: conversation.id,
+                                                                                                      didClickBack: viewModel.didQuitSubview))
+                                            .onAppear {
+                                                viewModel.didSelectConversation()
+                                            }
+                            ) {
+                                VStack {
+                                    SingleConversationView(viewModel: SingleConversationViewState(conversation: conversation))
+                                    if conversation != viewModel.conversations.last {
+                                        Divider()
+                                            .padding(.leading, 70)
+                                    }
                                 }
+                                .contentShape(Rectangle())  // Assure que toute la surface est cliquable
                             }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .refreshable {
+                        Task {
+                            await viewModel.didForceRefresh()
                         }
                     }
                 }
             }
-            .refreshable {
-                Task {
-                    await viewModel.didForceRefresh()
+            .navigationTitle("Conversations")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        presentAddConversationView.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        presentEditProfileView = true
+                    } label: {
+                        Group {
+                            if let picture = viewModel.userPicture {
+                                picture
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.crop.circle.fill")
+                            }
+                        }
+                    }
                 }
             }
             .sheet(isPresented: $presentAddConversationView) {

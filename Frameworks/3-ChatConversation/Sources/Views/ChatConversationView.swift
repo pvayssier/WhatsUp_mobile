@@ -77,12 +77,14 @@ public struct ChatConversationView<ViewModel: ChatConversationViewModelProtocol>
                     }
                 }
                 .scrollDismissesKeyboard(.interactively)
-                .background {
-                    Image("backgroundImage", bundle: .main)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                }
                 MessageInputView(viewModel.didClickSend)
+            }
+            .background {
+                Image("backgroundImage", bundle: .main)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(minWidth: UIScreen.main.bounds.width + 40, maxHeight: UIScreen.main.bounds.height)
+                    .edgesIgnoringSafeArea(.bottom)
             }
             .frame(minWidth: UIScreen.main.bounds.width, maxHeight: UIScreen.main.bounds.height)
             .background(Color("backgroundColor", bundle: .main))

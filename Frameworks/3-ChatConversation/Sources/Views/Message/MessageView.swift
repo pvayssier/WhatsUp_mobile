@@ -81,7 +81,7 @@ struct MessageView: View {
                                     endText: formatDate)
                 }
                 .padding(4)
-                .background(Color("receivedMessageColor", bundle: .main))
+                .background(Color("ReceivedMessageColor", bundle: .main))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .contextMenu {
                     Button("Report", systemImage: "exclamationmark.bubble", role: .destructive) {
