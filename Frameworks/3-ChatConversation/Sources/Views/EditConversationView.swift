@@ -72,6 +72,8 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                         }
                                      .padding(.top)
                     }
+                    Text(viewModel.errorText ?? "error")
+                        .foregroundColor(viewModel.errorText != nil ? .red : .clear)
                     Form {
                         Section(String(localized: "EditConversation.conversationName")) {
                             TextField(String(localized: "EditConversation.conversationName"), text: $viewModel.conversationName)
@@ -96,19 +98,32 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
                                     }
                                 }
                             }
-                            ForEach(viewModel.newUserPhoneNumbers.indices, id: \.self) { index in
-                                HStack {
-                                    if !viewModel.newUserPhoneNumbers.isEmpty {
-                                        TextField("\(String(localized: "EditConversation.member")) \(viewModel.conversationUserNames.count + index + 1)", text: $viewModel.newUserPhoneNumbers[index])
-                                            .keyboardType(.phonePad)
-                                        Button(action: {
-                                            viewModel.newUserPhoneNumbers.remove(at: index)
-                                        }) {
-                                            Image(systemName: "minus.circle.fill")
+                            if !viewModel.newUserPhoneNumbers.isEmpty {
+                                ForEach(viewModel.newUserPhoneNumbers.indices, id: \.self) { index in
+                                    HStack {
+                                        if !viewModel.newUserPhoneNumbers.isEmpty {
+                                            TextField("\(String(localized: "EditConversation.member")) \(viewModel.conversationUserNames.count + index + 1)", text: $viewModel.newUserPhoneNumbers[index])
+                                                .keyboardType(.phonePad)
+                                                .foregroundColor(viewModel.newUserPhoneNumbersValidate[index] ? .primary : .red)
+                                                .onChange(of: viewModel.newUserPhoneNumbers[index]) { newValue in
+                                                    viewModel.newUserPhoneNumbersValidate[index] = viewModel.isValidPhoneNumber(newValue)
+                                                    if newValue.count > 10 {
+                                                        viewModel.newUserPhoneNumbers[index] = String(viewModel.newUserPhoneNumbers[index].prefix(10))
+                                                    }
+                                                }
+                                            Button(action: {
+                                                hideKeyboard()
+                                                if !viewModel.newUserPhoneNumbers.isEmpty {
+                                                    viewModel.newUserPhoneNumbers.remove(at: index)
+                                                }
+                                            }) {
+                                                Image(systemName: "minus.circle.fill")
+                                            }
+                                            .foregroundStyle(.blue)
                                         }
-                                        .foregroundStyle(.blue)
-                                    }
 
+                                    }
+                                    .buttonStyle(BorderlessButtonStyle())
                                 }
                             }
                             Button(action: {
@@ -221,4 +236,3 @@ struct EditConversationView<ViewModel: EditConversationViewModelProtocol>: View 
         }
     }
 }
-

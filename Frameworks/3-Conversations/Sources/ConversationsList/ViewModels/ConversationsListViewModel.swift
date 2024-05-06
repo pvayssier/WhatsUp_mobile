@@ -19,14 +19,18 @@ public protocol ConversationsListViewModelProtocol: ObservableObject {
     var conversations: [Conversation] { get }
     var myUser: User { get }
     var userPicture: Image? { get }
+    var singleConversationStates: [String: any SingleConversationViewStateProtocol] { get }
     var userNotLogged: () -> Void { get }
+    var isLoading: Bool { get }
 }
 
 final public class ConversationsListViewModel: ConversationsListViewModelProtocol {
 
     @Published public private(set) var conversations: [Conversation] = []
+    @Published public var userPicture: Image?
+    @Published public var singleConversationStates: [String: any SingleConversationViewStateProtocol] = [:]
+    @Published public var isLoading: Bool = false
     public let myUser: User
-    public var userPicture: Image?
     public let userNotLogged: () -> Void
 
     @Injected(\.conversationsListService) private var conversationsListService
@@ -43,38 +47,27 @@ final public class ConversationsListViewModel: ConversationsListViewModelProtoco
         socketClient = socketManager.defaultSocket
         myUser = userDefaults.user ?? User(id: "", username: "", email: "", phone: "")
 
-        Task {
-            if let url = myUser.pictureUrl {
-                Task {
-                    userPicture = await Image.loadAsync(from: url)
-                }
-            } else {
-                userPicture = nil
+        if let url = myUser.pictureUrl {
+            Task {
+                userPicture = await Image.loadAsync(from: url)
             }
+        } else {
+            userPicture = nil
+        }
+        Task {
+            await setupSingleConversationViewModels()
         }
     }
 
     @MainActor
     public func viewDidAppear() {
-        Task {
-            do {
-                conversations = try await conversationsListService.fetchConversations()
-                    .sorted(by: { lhs, rhs in
-                        lhs.updateAt > rhs.updateAt
-                    })
-            } catch {
-                if let error = error as? NetworkError, error == NetworkError.unauthorized {
-                    userNotLogged()
-                }
-            }
-        }
-        if let user = userDefaults.user {
-            subscribeNotification(userId: user.id)
-        }
+        setupSingleConversationViewModels()
+        fetchConversations()
     }
 
     @MainActor
     public func didForceRefresh() {
+        setupSingleConversationViewModels()
         Task {
             do {
                 conversations = try await conversationsListService.fetchConversations()
@@ -86,6 +79,16 @@ final public class ConversationsListViewModel: ConversationsListViewModelProtoco
                     userNotLogged()
                 }
             }
+        }
+    }
+
+    @MainActor
+    public func setupSingleConversationViewModels() {
+        let viewModels = conversations.map { conversation in
+            SingleConversationViewState(conversation: conversation)
+        }
+        viewModels.forEach { viewModel in
+            singleConversationStates[viewModel.id] = viewModel
         }
     }
 
@@ -100,6 +103,27 @@ final public class ConversationsListViewModel: ConversationsListViewModelProtoco
     }
 
     @MainActor
+    private func fetchConversations() {
+        isLoading = true
+        Task {
+            do {
+                conversations = try await conversationsListService.fetchConversations()
+                    .sorted(by: { lhs, rhs in
+                        lhs.updateAt > rhs.updateAt
+                    })
+            } catch {
+                if let error = error as? NetworkError, error == NetworkError.unauthorized {
+                    userNotLogged()
+                }
+            }
+            isLoading = false
+        }
+        if let user = userDefaults.user {
+            subscribeNotification(userId: user.id)
+        }
+    }
+
+    @MainActor
     private func subscribeNotification(userId: String) {
         socketClient.connect()
 
@@ -110,19 +134,25 @@ final public class ConversationsListViewModel: ConversationsListViewModelProtoco
 
         socketClient.on("new_message") { [weak self] data, ack in
             let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601  // Utilisez cela si vos dates sont en format ISO 8601
+            decoder.dateDecodingStrategy = .iso8601
             if let data = (data[0] as? String)?.data(using: .utf8),
                let conversationDTO = try? decoder.decode(ConversationDTO.self, from: data),
                let self {
-
-                conversations = conversations.compactMap({ [weak self] conversation -> Conversation? in
-                    if conversation.id == conversationDTO.id {
-                        return self?.dataToConversation(conversationDTO: conversationDTO)
-                    }
-                    return conversation
-                }).sorted(by: { lhs, rhs in
-                    lhs.updateAt > rhs.updateAt
-                })
+                if conversations.first(where: { $0.id == conversationDTO.id }) == nil {
+                    conversations.append(self.dataToConversation(conversationDTO: conversationDTO))
+                    conversations = conversations.sorted(by: { lhs, rhs in
+                        lhs.updateAt > rhs.updateAt
+                    })
+                } else {
+                    conversations = conversations.compactMap({ [weak self] conversation -> Conversation? in
+                        if conversation.id == conversationDTO.id {
+                            return self?.dataToConversation(conversationDTO: conversationDTO)
+                        }
+                        return conversation
+                    }).sorted(by: { lhs, rhs in
+                        lhs.updateAt > rhs.updateAt
+                    })
+                }
             }
         }
     }

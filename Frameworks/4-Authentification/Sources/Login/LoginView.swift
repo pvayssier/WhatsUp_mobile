@@ -91,6 +91,7 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
                             .padding(.top, 20)
                     }
                     Button(action: {
+                        hideKeyboard()
                         viewModel.didTapLogin()
                     }, label: {
                         Text(String(localized: "Login.button"))
@@ -129,6 +130,12 @@ struct LoginView<ViewModel: AuthViewModelProtocol>: View {
             })
             .background(Color(uiColor: UIColor.systemGray6))
             .ignoresSafeArea(.keyboard)
+    }
+}
+extension View {
+    func hideKeyboard() {
+        let resign = #selector(UIResponder.resignFirstResponder)
+        UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
     }
 }
 

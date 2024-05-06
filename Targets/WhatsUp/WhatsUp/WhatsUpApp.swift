@@ -10,6 +10,7 @@ import Authentification
 
 @main
 struct WhatsUpApp: App {
+
     var body: some Scene {
         WindowGroup {
             AuthentificationView(viewModel: AuthViewModel(viewState: AuthViewState(authType: .login)))

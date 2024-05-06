@@ -14,11 +14,13 @@ import Models
 protocol EditConversationViewModelProtocol: ObservableObject {
     var conversationName: String { get set }
     var conversationPicture: Image? { get set }
+    var errorText: String? { get }
     var selectedPickerPicture: PhotosPickerItem? { get set }
     var selectedPicture: UIImage? { get set }
     var conversationUserNames: [String] { get set }
     var conversationUserPhoneNumbers: [String] { get set }
     var newUserPhoneNumbers: [String] { get set }
+    var newUserPhoneNumbersValidate: [Bool] { get set }
     var isLoading: Bool { get }
     var isModified: Bool { get }
     var showAlert: Bool { get set }
@@ -27,6 +29,7 @@ protocol EditConversationViewModelProtocol: ObservableObject {
     func didTapLeave() async -> Bool
     func didTapDelete() async -> Bool
     func didTapSave()
+    func isValidPhoneNumber(_ phoneNumber: String) -> Bool
 }
 
 final class EditConversationViewModel: EditConversationViewModelProtocol {
@@ -34,9 +37,11 @@ final class EditConversationViewModel: EditConversationViewModelProtocol {
     @Injected(\.editConversationService) private var editConversationService
 
     @Published var conversationName: String = ""
+    @Published var errorText: String?
     @Published var conversationUserNames: [String] = []
     @Published var conversationUserPhoneNumbers: [String] = []
     @Published var newUserPhoneNumbers: [String] = []
+    @Published var newUserPhoneNumbersValidate: [Bool] = []
     @Published var conversationPicture: Image?
     @Published var selectedPickerPicture: PhotosPickerItem?
     @Published var selectedPicture: UIImage?
@@ -93,6 +98,10 @@ final class EditConversationViewModel: EditConversationViewModelProtocol {
         }
         .assign(to: \.isModified, on: self)
         .store(in: &cancellables)
+
+        $newUserPhoneNumbers
+            .map { $0.map { self.isValidPhoneNumber($0) } }
+            .assign(to: &$newUserPhoneNumbersValidate)
     }
 
     @MainActor
@@ -108,6 +117,10 @@ final class EditConversationViewModel: EditConversationViewModelProtocol {
 
     @MainActor
     func didTapSave() {
+        guard !newUserPhoneNumbers.filter({ isValidPhoneNumber($0) && $0.count > 3 }).isEmpty || newUserPhoneNumbers.isEmpty else {
+            errorText = String(localized: "EditConversation.invalidPhone")
+            return
+        }
         isLoading = true
         Task {
             var users = conversationUserPhoneNumbers
@@ -146,5 +159,14 @@ final class EditConversationViewModel: EditConversationViewModelProtocol {
                 debugPrint("Error while updating conversation: \(error)")
             }
         }
+    }
+
+    func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
+        if phoneNumber.count <= 3 {
+            return true
+        }
+        let phoneRegex = "^0[67]\\d{8}$"
+        let phonePred = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phonePred.evaluate(with: phoneNumber)
     }
 }

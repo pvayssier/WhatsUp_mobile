@@ -94,7 +94,7 @@ final class EditProfileViewModel: EditProfileViewModelProtocol {
                 isModified = false
                 isLoading = false
             } catch {
-                print("Error: \(error)")
+                debugPrint("Error: \(error)")
             }
         }
     }
@@ -117,7 +117,7 @@ final class EditProfileViewModel: EditProfileViewModelProtocol {
                     goToLogin()
                 }
             } catch {
-                print("Error: \(error)")
+                debugPrint("Error: \(error)")
             }
         }
     }

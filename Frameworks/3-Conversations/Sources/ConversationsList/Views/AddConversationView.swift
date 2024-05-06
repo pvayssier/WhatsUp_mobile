@@ -25,25 +25,44 @@ struct AddConversationView<ViewModel: AddConversationViewModelProtocol>: View {
                 ZStack {
                     PhotosPicker(selection: $viewModel.selectedPhoto,
                                  matching: .images) {
-                        if let conversationPicture = viewModel.conversationPicture {
-                            Image(uiImage: conversationPicture)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 152, height: 152)
-                                .clipShape(Circle())
-                        } else {
-                            Image(systemName: "person.2.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 120, height: 120)
-                                .padding()
-                                .foregroundStyle(.white)
-                                .background(Color(.systemGray3))
-                                .clipShape(Circle())
+                        ZStack {
+                            if let conversationPicture = viewModel.conversationPicture {
+                                Image(uiImage: conversationPicture)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 152, height: 152)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .padding()
+                                    .frame(width: 120, height: 120)
+                                    .padding()
+                                    .foregroundStyle(.white)
+                                    .background(Color(.systemGray3))
+                                    .clipShape(Circle())
+                            }
+                            VStack {
+                                Spacer()
+                                Text(String(localized: "EditProfile.changePicture"))
+                                    .foregroundColor(.white)
+                                    .fontWeight(.semibold)
+                                    .padding(4)
+                                    .background(.gray.opacity(0.5))
+                                    .clipShape(Capsule())
+                                Spacer()
+                            }
+                            .padding(8)
+                            .frame(width: 152, height: 152)
+                            .background(.ultraThinMaterial.opacity(0.7))
+                            .clipShape(Circle())
                         }
                     }
                                  .padding(.top)
                 }
+                Text(viewModel.errorText ?? "error")
+                    .foregroundColor(viewModel.errorText != nil ? .red : .clear)
                 Form {
                     TextField(String(localized: "AddConversation.conversationName"), text: $viewModel.conversationName)
                 }
@@ -55,15 +74,23 @@ struct AddConversationView<ViewModel: AddConversationViewModelProtocol>: View {
                             HStack {
                                 TextField("Member \(index + 1)", text: $viewModel.conversationMembers[index])
                                     .keyboardType(.phonePad)
+                                    .foregroundColor(viewModel.conversationMembersValidate[index] ? .primary : .red)
+                                    .onChange(of: viewModel.conversationMembers[index]) { newValue in
+                                        if newValue.count > 10 {
+                                            viewModel.conversationMembers[index] = String(viewModel.conversationMembers[index].prefix(10))
+                                        }
+                                    }
                                 if index > 0 {
-                                    Button(action: {
+                                    Button {
+                                        hideKeyboard()
                                         viewModel.conversationMembers.remove(at: index)
-                                    }) {
+                                    } label: {
                                         Image(systemName: "minus.circle.fill")
                                     }
                                     .foregroundStyle(.blue)
                                 }
                             }
+                            .buttonStyle(BorderlessButtonStyle())
                         }
                         Button(action: {
                             viewModel.conversationMembers.append("")
@@ -100,12 +127,20 @@ struct AddConversationView<ViewModel: AddConversationViewModelProtocol>: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(String(localized: "AddConversation.create")) {
-                        viewModel.didClickCreate()
-                        dismiss()
+                        if viewModel.didClickCreate() {
+                            dismiss()
+                        }
                     }
                 }
             }
         }
+    }
+}
+
+extension View {
+    func hideKeyboard() {
+        let resign = #selector(UIResponder.resignFirstResponder)
+        UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
     }
 }
 

@@ -60,26 +60,6 @@ public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
         isValidPassword = true
     }
 
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
-
-    func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
-        let phoneRegex = "^0[67]\\d{8}$"
-
-        let phonePred = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
-        return phonePred.evaluate(with: phoneNumber)
-    }
-
-    func isValidPassword(_ password: String) -> Bool {
-        let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_])[A-Za-z\\d\\W_]{8,}$"
-        let passwordPred = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
-        return passwordPred.evaluate(with: password)
-    }
-
     @MainActor
     public func viewDidAppear() {
         if userDefaultsManager.user != nil {
@@ -156,5 +136,25 @@ public class AuthViewModel: AuthViewModelProtocol, ObservableObject {
                 isLoading = false
             }
         }
+    }
+
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+
+    private func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
+        let phoneRegex = "^0[67]\\d{8}$"
+
+        let phonePred = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phonePred.evaluate(with: phoneNumber)
+    }
+
+    private func isValidPassword(_ password: String) -> Bool {
+        let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_])[A-Za-z\\d\\W_]{8,}$"
+        let passwordPred = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        return passwordPred.evaluate(with: password)
     }
 }

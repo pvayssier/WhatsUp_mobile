@@ -119,4 +119,3 @@ extension View {
         UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
     }
 }
-
