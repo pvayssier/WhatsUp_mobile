@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FF0DCFF82BE8C63C00E81016 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF0DCFF62BE8C63C00E81016 /* Localizable.strings */; };
 		FF0DCFFB2BE8D7D000E81016 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF0DCFF92BE8D7CF00E81016 /* Localizable.strings */; };
+		FF0DCFFE2BE99D8C00E81016 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0DCFFD2BE99D8C00E81016 /* AppDelegate.swift */; };
 		FF6E06F02BC43D30007DC4B1 /* WhatsUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6E06EF2BC43D30007DC4B1 /* WhatsUpApp.swift */; };
 		FF6E06F42BC43D31007DC4B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */; };
 		FF6E06F72BC43D31007DC4B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6E06F62BC43D31007DC4B1 /* Preview Assets.xcassets */; };
@@ -33,6 +34,8 @@
 /* Begin PBXFileReference section */
 		FF0DCFF72BE8C63C00E81016 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		FF0DCFFA2BE8D7CF00E81016 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localizable.strings; sourceTree = "<group>"; };
+		FF0DCFFC2BE996D400E81016 /* WhatsUpApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatsUpApp.entitlements; sourceTree = "<group>"; };
+		FF0DCFFD2BE99D8C00E81016 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF6E06EF2BC43D30007DC4B1 /* WhatsUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsUpApp.swift; sourceTree = "<group>"; };
 		FF6E06F32BC43D31007DC4B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF6E06F62BC43D31007DC4B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -58,6 +61,7 @@
 			children = (
 				FF0DCFF52BE8C62200E81016 /* en.lproj */,
 				FF0DCFF42BE8C61200E81016 /* fr.lproj */,
+				FF0DCFFD2BE99D8C00E81016 /* AppDelegate.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -81,6 +85,7 @@
 		FF6E06E32BC43D30007DC4B1 = {
 			isa = PBXGroup;
 			children = (
+				FF0DCFFC2BE996D400E81016 /* WhatsUpApp.entitlements */,
 				FF6E06EE2BC43D30007DC4B1 /* WhatsUp */,
 				FF82C7642BCD09F500B7A3BE /* WhatsUpApp.app */,
 				FF82C7682BCD94F600B7A3BE /* Frameworks */,
@@ -197,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF0DCFFE2BE99D8C00E81016 /* AppDelegate.swift in Sources */,
 				FF6E06F02BC43D30007DC4B1 /* WhatsUpApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +353,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WhatsUpApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatsUp/Preview Content\"";
@@ -378,6 +385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WhatsUpApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatsUp/Preview Content\"";
