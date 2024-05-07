@@ -8,6 +8,7 @@
 import Foundation
 
 public enum ApiEndpoint {
+    case sendDeviceToken
     case register
     case login
     case myConversations
@@ -21,6 +22,8 @@ public enum ApiEndpoint {
 
     var path: String {
         switch self {
+        case .sendDeviceToken:
+            return "users/token"
         case .register:
             return "users/register"
         case .login:
