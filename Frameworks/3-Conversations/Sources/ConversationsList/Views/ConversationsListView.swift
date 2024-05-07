@@ -43,7 +43,11 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
                                             }
                             ) {
                                 VStack {
-                                    SingleConversationView(viewModel: SingleConversationViewState(conversation: conversation))
+                                    if let conversationViewState = viewModel.singleConversationStates[conversation.id] as? SingleConversationViewState {
+                                        SingleConversationView(viewModel: conversationViewState)
+                                    } else {
+                                        SingleConversationView(viewModel: SingleConversationViewState(conversation: conversation))
+                                    }
                                     if conversation != viewModel.conversations.last {
                                         Divider()
                                             .padding(.leading, 70)
@@ -61,7 +65,7 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
                     }
                 }
             }
-            .navigationTitle("Conversations")
+            .navigationTitle(String(localized: "ConversationList.title"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -98,6 +102,10 @@ public struct ConversationsListView<ViewModel: ConversationsListViewModelProtoco
                 AddConversationView(viewModel: viewModel)
             }
             .sheet(isPresented: $presentEditProfileView) {
+                Task {
+                    await viewModel.didForceRefresh()
+                }
+            } content: {
                 let viewModel = EditProfileViewModel(picture: viewModel.userPicture, viewModel.userNotLogged)
                 EditProfileView(viewModel: viewModel)
             }

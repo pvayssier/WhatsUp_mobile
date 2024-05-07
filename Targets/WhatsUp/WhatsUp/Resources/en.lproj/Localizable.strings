@@ -20,25 +20,28 @@
 "ChatConversation.today" = "Today";
 
 // EditConversation
+"EditConversation.addNewMember" = "Add new member phone";
+"EditConversation.cancel" = "Cancel";
 "EditConversation.changePicture" = "Change picture";
 "EditConversation.conversationName" = "Conversation name";
+"EditConversation.DeleteConversation.button" = "Delete conversation";
+"EditConversation.DeleteConversation.AreYouSure.title" = "Are you sure ?";
+"EditConversation.DeleteConversation.AreYouSure.Message.prefix" = "You will loose all messages in";
+"EditConversation.DeleteConversation.AreYouSure.Message.sufix" = " conversation.";
+"EditConversation.DeleteConversation.AreYouSure.cancel" = "Cancel";
+"EditConversation.DeleteConversation.AreYouSure.delete" = "Delete";
+"EditConversation.done" = "Done";
 "EditConversation.groupMembers" = "Group members";
-"EditConversation.member" = "Member";
-"EditConversation.addNewMember" = "Add new member phone";
+"EditConversation.invalidPhone" = "Invalid phone number";
 "EditConversation.leaveConversation" = "Leave conversation";
 "EditConversation.LeaveConversation.AreYouSure.title" = "Are you sure ?";
 "EditConversation.LeaveConversation.AreYouSure.Message.prefix" = "You will no longer able to access";
 "EditConversation.LeaveConversation.AreYouSure.Message.sufix" = " conversation.";
 "EditConversation.LeaveConversation.AreYouSure.cancel" = "Cancel";
-"EditConversation.DeleteConversation.button" = "Delete conversation";
-"EditConversation.DeleteConversation.AreYouSure.title" = "Are you sure ?";
-"EditConversation.DeleteConversation.AreYouSure.Message.prefix" = "You will loose all messages in";
-"EditConversation.DeleteConversation.AreYouSure.Message.sufix" = " conversation.";
-"EditConversation.LeaveConversation.AreYouSure.cancel" = "Cancel";
 "EditConversation.LeaveConversation.AreYouSure.leave" = "Leave";
-"EditConversation.cancel" = "Cancel";
+"EditConversation.member" = "Member";
 "EditConversation.save" = "Save";
-"EditConversation.done" = "Done";
+"EditConversation.userAlreadyInConversationError" = "User already in conversation";
 
 // AddConversation
 "AddConversation.conversationName" = "Conversation name (Optionnal)";
@@ -47,6 +50,9 @@
 "AddConversation.title" = "Add a conversation";
 "AddConversation.cancel" = "Cancel";
 "AddConversation.create" = "Create";
+"AddConversation.addItself" = "You can't add yourself";
+"AddConversation.invalidPhone" = "Invalid phone number";
+"AddConversation.userAlreadyInConversationError" = "User(s) already in conversation";
 
 // ConversationList
 "AddConversation.title" = "Conversations";

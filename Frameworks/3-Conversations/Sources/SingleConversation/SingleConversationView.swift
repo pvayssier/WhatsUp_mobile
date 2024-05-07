@@ -34,6 +34,7 @@ public struct SingleConversationView<ViewModel: SingleConversationViewStateProto
                     .foregroundStyle(.white)
                     .background(Color(.systemGray3))
                     .clipShape(Circle())
+                    .skeletoned(viewModel.isSkeleton)
             }
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
@@ -41,15 +42,18 @@ public struct SingleConversationView<ViewModel: SingleConversationViewStateProto
                     HStack {
                         Text(viewModel.groupName)
                             .font(.headline)
+                            .skeletoned(viewModel.isSkeleton)
                         Spacer()
                         Text(viewModel.formatDate)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
+                            .skeletoned(viewModel.isSkeleton)
                     }
                     Text(viewModel.formatLastMessage)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .lineLimit(2)
+                        .skeletoned(viewModel.isSkeleton)
                 }
                 VStack {
                     Spacer()

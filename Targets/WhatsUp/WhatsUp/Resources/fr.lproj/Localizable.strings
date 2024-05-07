@@ -7,7 +7,7 @@
 */
 
 // ConversationList
-"ConversationList.title" = "Discussion";
+"ConversationList.title" = "Discussions";
 "ConversationList.today" = "Aujourd'hui";
 
 // ChatConversation
@@ -20,25 +20,28 @@
 "ChatConversation.today" = "Aujourd'hui";
 
 // EditConversation
+"EditConversation.addNewMember" = "Ajouter un nouveau membre";
+"EditConversation.cancel" = "Annuler";
 "EditConversation.changePicture" = "Changer l'image";
 "EditConversation.conversationName" = "Nom de la conversation";
-"EditConversation.groupMembers" = "Membres du groupe";
-"EditConversation.member" = "Membre";
-"EditConversation.addNewMember" = "Ajouter un nouveau membre";
-"EditConversation.leaveConversation" = "Quitter la conversation";
-"EditConversation.LeaveConversation.AreYouSure.title" = "Êtes-vous sûr ?";
-"EditConversation.LeaveConversation.AreYouSure.Message.prefix" = "Vous ne pourrez plus accéder à";
-"EditConversation.LeaveConversation.AreYouSure.Message.sufix" = " la conversation.";
-"EditConversation.LeaveConversation.AreYouSure.cancel" = "Annuler";
+"EditConversation.done" = "Terminé";
 "EditConversation.DeleteConversation.button" = "Supprimer la conversation";
 "EditConversation.DeleteConversation.AreYouSure.title" = "Êtes-vous sûr ?";
 "EditConversation.DeleteConversation.AreYouSure.Message.prefix" = "Vous perdrez tous les messages dans";
 "EditConversation.DeleteConversation.AreYouSure.Message.sufix" = " la conversation.";
+"EditConversation.DeleteConversation.AreYouSure.cancel" = "Annuler";
+"EditConversation.DeleteConversation.AreYouSure.delete" = "Supprimer";
+"EditConversation.groupMembers" = "Membres du groupe";
+"EditConversation.leaveConversation" = "Quitter la conversation";
+"EditConversation.LeaveConversation.AreYouSure.Message.prefix" = "Vous ne pourrez plus accéder à";
+"EditConversation.LeaveConversation.AreYouSure.Message.sufix" = " la conversation.";
+"EditConversation.LeaveConversation.AreYouSure.title" = "Êtes-vous sûr ?";
 "EditConversation.LeaveConversation.AreYouSure.cancel" = "Annuler";
 "EditConversation.LeaveConversation.AreYouSure.leave" = "Quitter";
-"EditConversation.cancel" = "Annuler";
+"EditConversation.invalidPhone" = "Numéro de téléphone invalide";
+"EditConversation.member" = "Membre";
 "EditConversation.save" = "Enregistrer";
-"EditConversation.done" = "Terminé";
+"EditConversation.userAlreadyInConversationError" = "L'utilisateur est déjà dans la conversation";
 
 // AddConversation
 "AddConversation.conversationName" = "Nom de la conversation (Optionnel)";
@@ -47,9 +50,12 @@
 "AddConversation.title" = "Ajouter une conversation";
 "AddConversation.cancel" = "Annuler";
 "AddConversation.create" = "Créer";
+"AddConversation.addItself" = "Vous ne pouvez pas vous ajouter vous-même";
+"AddConversation.invalidPhone" = "Numéro de téléphone invalide";
+"AddConversation.userAlreadyInConversationError" = "L'utilisateur est déjà dans la conversation";
 
 // ConversationList
-"AddConversation.title" = "Conversations";
+"AddConversation.title" = "Conversation";
 
 // EditProfile
 "EditProfile.changePicture" = "Changer l'image";
@@ -63,7 +69,8 @@
 "EditProfile.save" = "Enregistrer";
 "EditProfile.done" = "Terminé";
 "EditProfile.DeleteAccount.AreYouSure.title" = "Supprimer votre compte";
-"EditProfile.DeleteAccount.AreYouSure.message" = "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.";
+"EditProfile.DeleteAccount.AreYouSure.message" = "Êtes-vous sûr de vouloir supprimer votre compte ?
+Cette action est irréversible.";
 "EditProfile.DeleteAccount.AreYouSure.delete" = "Supprimer";
 
 // SingleConversation

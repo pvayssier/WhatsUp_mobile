@@ -134,6 +134,7 @@ public struct RegisterView<ViewModel: AuthViewModelProtocol>: View {
                     }
                 }
                 Button(action: {
+                    hideKeyboard()
                     viewModel.didTapRegister()
                 }, label: {
                     Text(String(localized: "Register.button"))
