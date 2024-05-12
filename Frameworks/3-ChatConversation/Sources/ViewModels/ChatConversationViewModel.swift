@@ -34,12 +34,13 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
     @Published public var groupPicture: Image?
     @Published public var usersPicture: [String: Image?] = [:]
 
-    public let onDisappear: () -> Void
+    public var onDisappear: () -> Void = {}
     public var myUser: User
 
     private let socketManager: SocketManager
     private let socketClient: SocketIOClient
     private var conversationId: String
+    private var isSubscribed = false
 
 
     public init(conversationId: String, didClickBack: @escaping () -> Void) {
@@ -50,7 +51,10 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
 
         self.socketManager = SocketManager(socketURL: URL(string: userDefault.baseURL ?? "http://172.16.70.196:3000/")!)
         self.socketClient = socketManager.defaultSocket
-        self.onDisappear = didClickBack
+        self.onDisappear = { [weak self] in
+            didClickBack()
+            self?.socketClient.disconnect()
+        }
     }
 
     @MainActor
@@ -85,6 +89,7 @@ final public class ChatConversationViewModel: ChatConversationViewModelProtocol 
     }
 
     private func connectSocket() {
+        guard !isSubscribed else { return }
         let conversationId = conversationId
 
         socketClient.connect()

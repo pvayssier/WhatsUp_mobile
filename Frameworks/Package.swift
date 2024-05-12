@@ -8,6 +8,7 @@ let package = Package(
     platforms: [.iOS(.v16)],
     products: [
         .library(name: "Models", targets: ["Models"]),
+        .library(name: "SocketIO", targets: ["SocketIO"]),
         .library(name: "Tools", targets: ["Tools"]),
         .library(name: "UITools", targets: ["UITools"]),
         .library(name: "ChatConversation", targets: ["ChatConversation"]),
@@ -16,11 +17,14 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/hmlongco/Factory.git", from: "2.3.0"),
-        .package(url: "https://github.com/socketio/socket.io-client-swift.git", from: "16.0.0")
+        .package(url: "https://github.com/daltoniam/Starscream", exact: "4.0.6")
     ],
     targets: [
         .target(name: "Models",
                 path: "./0-Models/Sources"),
+        .target(name: "SocketIO",
+                dependencies: ["Starscream"],
+                path: "./0-SocketIO/socket.io-client-swift/Source"),
         .target(name: "Tools",
                 dependencies: ["Models"],
                 path: "./1-Tools/Sources"),
@@ -28,10 +32,10 @@ let package = Package(
                 dependencies: ["Models", "Tools"],
                 path: "./2-UITools/Sources"),
         .target(name: "ChatConversation",
-                dependencies: ["Factory", "Tools", "Models", "UITools"],
+                dependencies: ["Factory", "Tools", "Models", "UITools", "SocketIO"],
                 path: "./3-ChatConversation/Sources"),
         .target(name: "Conversations",
-                dependencies: ["Factory", "Tools", "Models", "UITools", "ChatConversation"],
+                dependencies: ["Factory", "Tools", "Models", "UITools", "ChatConversation", "SocketIO"],
                 path: "./3-Conversations/Sources"),
         .target(name: "Authentification",
                 dependencies: ["Factory", "Tools", "Models", "Conversations", "UITools"],

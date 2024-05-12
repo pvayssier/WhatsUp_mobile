@@ -19,7 +19,7 @@ final public  class SendTokenWebDataAccess {
                                          isAuthentified: true)
         Task {
             do {
-                try await HTTPClient.shared.load(resource)
+                _ = try await HTTPClient.shared.load(resource)
             } catch {
                 debugPrint(error)
             }
